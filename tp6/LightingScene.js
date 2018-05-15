@@ -9,7 +9,7 @@ var BOARD_B_DIVISIONS = 100;
 var tableTexture = "../resources/images/table.png"
 var boardTexture = "../resources/images/board.png"
 var floorTexture = "../resources/images/floor.png"
-var dirtTexture = "../resources/images/dirt.png"
+var dirtTexture = "../resources/images/dirtyFloor.png"
 var slidesTexture = "../resources/images/slides.png"
 var windowTexture = "../resources/images/window.png"
 var clockTexture = "../resources/images/clock.png"
@@ -73,7 +73,7 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 		this.floorAppearance.setSpecular(0,0.2,0.2,0.2);	
 		this.floorAppearance.setShininess(10);
 		this.floorAppearance.setDiffuse(1,1,1,1);
-		this.floorAppearance.loadTexture(dirtyFloorTexture);
+		this.floorAppearance.loadTexture(dirtTexture);
 
 
 		this.windowAppearance = new CGFappearance(this);
