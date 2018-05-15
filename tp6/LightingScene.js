@@ -31,8 +31,16 @@ class LightingScene extends CGFscene
 
 		this.enableTextures(true);
 
+		// Initial Config
+		this.Eixos = false; 
+		this.Luzes = false; 
+		this.Seilaoq = true;
+		this.speed = 3;
+
+
+
 		// this.oldCurrTime = 0;
-this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
+		this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 		this.gl.clearDepth(100.0);
 		this.gl.enable(this.gl.DEPTH_TEST);
 		this.gl.enable(this.gl.CULL_FACE);
@@ -224,6 +232,15 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 			this.lights[i].update();
 	}
 
+	Controles()
+	{ 
+		// if (this.Eixos == false) {
+		// 	this.axis = null;
+		// } else {
+		// 	this.axis = new CGFaxis(this);
+		// }
+	};
+
 
 	display() 
 	{
@@ -244,7 +261,16 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 		this.updateLights();
 
 		// Draw axis
-		this.axis.display();
+		if (this.Eixos != false) {
+			this.axis.display();
+		} 
+
+		if (this.Luzes) {
+
+		} else {
+			
+		}
+
 
 		this.materialDefault.apply();
 

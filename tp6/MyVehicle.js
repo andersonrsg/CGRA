@@ -23,6 +23,21 @@ class MyVehicle extends CGFobject {
 		this.windsheet = new MyQuad(scene, 0, 1, 0, 1);
 		this.frontEngine = new MyQuad(scene, 0, 1, 0, 1);
 
+		this.frontLeftLght = new CGFlight(scene, "fl");
+		this.frontLeftLght.setPosition(1,1,1,1);
+
+		this.frontLeftLght.setAmbient(0.5, 0, 0, 1);
+		this.frontLeftLght.setDiffuse(1.0, 0, 0, 1.0);
+		this.frontLeftLght.setSpecular(1,0,0,1);	
+
+		// this.frontLeftLght.setAmbient(0.5, 0.5, 0.5, 1);
+		// this.frontLeftLght.setDiffuse(1.0, 1.0, 1.0, 1.0);
+		// this.frontLeftLght.setSpecular(-1,-1,-1,1);	
+		
+		this.frontLeftLght.enable();
+		this.frontLeftLght.update();
+
+
 		this.initBuffers();
 	};
 
