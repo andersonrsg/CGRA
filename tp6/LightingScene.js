@@ -14,14 +14,14 @@ var slidesTexture = "../resources/images/slides.png"
 var windowTexture = "../resources/images/window.png"
 var clockTexture = "../resources/images/clock.png"
 
-class LightingScene extends CGFscene 
+class LightingScene extends CGFscene
 {
 	constructor()
 	{
 		super();
 	};
 
-	init(application) 
+	init(application)
 	{
 		super.init(application);
 
@@ -53,7 +53,7 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 
 		this.myPrism = new MyPrism(this, 6, 20);
 		this.myCilinder = new MyCilinder(this, 5, 20, 1)
-		
+
 		this.boardA = new Plane(this, BOARD_A_DIVISIONS, -0.1, 1.2, 0.1, 0.8);
 		this.boardB = new Plane(this, BOARD_B_DIVISIONS, 0, 1, 0, 1);
 
@@ -62,43 +62,43 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 
 		// Trabalho 4
 
-	
+
 		this.tableAppearance = new CGFappearance(this);
-		this.tableAppearance.setSpecular(0,0.2,0.2,0.2);	
+		this.tableAppearance.setSpecular(0,0.2,0.2,0.2);
 		this.tableAppearance.setShininess(10);
 		this.tableAppearance.setDiffuse(1,1,1,1);
 		this.tableAppearance.loadTexture(tableTexture);
 
 		this.floorAppearance = new CGFappearance(this);
-		this.floorAppearance.setSpecular(0,0.2,0.2,0.2);	
+		this.floorAppearance.setSpecular(0,0.2,0.2,0.2);
 		this.floorAppearance.setShininess(10);
 		this.floorAppearance.setDiffuse(1,1,1,1);
 		this.floorAppearance.loadTexture(dirtTexture);
 
 
 		this.windowAppearance = new CGFappearance(this);
-		this.windowAppearance.setSpecular(0,0.2,0.2,0.2);	
+		this.windowAppearance.setSpecular(0,0.2,0.2,0.2);
 		this.windowAppearance.setShininess(10);
 		this.windowAppearance.setDiffuse(1,1,1,1);
 		this.windowAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
 		this.windowAppearance.loadTexture(windowTexture);
-		
+
 		this.slidesAppearance = new CGFappearance(this);
-		this.slidesAppearance.setSpecular(0,0.1,0.1,0.1);	
+		this.slidesAppearance.setSpecular(0,0.1,0.1,0.1);
 		this.slidesAppearance.setShininess(5);
 		this.slidesAppearance.setDiffuse(1,1,1,1);
 		this.slidesAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
 		this.slidesAppearance.loadTexture(slidesTexture);
 
 		this.boardAppearance = new CGFappearance(this);
-		this.boardAppearance.setSpecular(0,0.5,0.5,0.5);	
+		this.boardAppearance.setSpecular(0,0.5,0.5,0.5);
 		this.boardAppearance.setShininess(150);
 		this.boardAppearance.setDiffuse(1,1,1,1);
 		// this.boardAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
 		this.boardAppearance.loadTexture(boardTexture);
 
 		this.clockAppearance = new CGFappearance(this);
-		this.clockAppearance.setSpecular(0,0.5,0.5,0.5);	
+		this.clockAppearance.setSpecular(0,0.5,0.5,0.5);
 		this.clockAppearance.setShininess(150);
 		this.clockAppearance.setDiffuse(1,1,1,1);
 		this.clockAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
@@ -111,21 +111,21 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 
 		// Materials
 		this.materialDefault = new CGFappearance(this);
-		
+
 		this.materialA = new CGFappearance(this);
 		this.materialA.setAmbient(0.3,0.3,0.3,1);
 		this.materialA.setDiffuse(0.6,0.6,0.6,1);
 		// this.materialA.setSpecular(0.2,0.2,0.2,1);
-		// this.materialA.setSpecular(0.8,0.8,0.8,1);	
-		// this.materialA.setSpecular(0,0,0.8,1);	
-		this.materialA.setSpecular(0,0.2,0.8,1);	
+		// this.materialA.setSpecular(0.8,0.8,0.8,1);
+		// this.materialA.setSpecular(0,0,0.8,1);
+		this.materialA.setSpecular(0,0.2,0.8,1);
 		this.materialA.setShininess(10);
 		this.materialA.setShininess(120);
 
 		this.materialB = new CGFappearance(this);
 		this.materialB.setAmbient(0.3,0.3,0.3,1);
 		this.materialB.setDiffuse(0.6,0.6,0.6,1);
-		this.materialB.setSpecular(0.8,0.8,0.8,1);	
+		this.materialB.setSpecular(0.8,0.8,0.8,1);
 		this.materialB.setShininess(120);
 
 
@@ -133,7 +133,7 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 
 		this.vehicle = new MyVehicle(this);
 
-		this.terrain = new MyTerrain(this, 1, 0, 1, 0, 1,50,50)
+	//	this.terrain = new MyTerrain(this, 8, this.altimetry);
 
 		this.dirtAppearance = new CGFappearance(this);
 		this.dirtAppearance.setSpecular(0,0.2,0.2,0.2);
@@ -144,9 +144,26 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 
 
 		this.setUpdatePeriod(100);
+
+		//alinea 6
+
+		//example for nrDivs = 8 -> grid of 9x9 vertices
+this.altimetry= [[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3 ],
+[ 2.0 , 3.0 , 2.0, 4.0, 7.5, 6.4, 4.3, 1.3 ],
+[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+[ 0.0 , 0.0 , 2.0, 4.0, 2.5, 2.4, 0.0, 0.0 ],
+[ 0.0 , 0.0 , 2.0, 4.0, 3.5, 2.4, 0.0, 0.0 ],
+[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+[ 2.0 , 3.0 , 2.0, 1.0, 2.5, 2.4, 2.3, 1.3 ]
+];
+
+this.terrain = new MyTerrain(this, 8, this.altimetry);
+
 	};
 
-	initCameras() 
+	initCameras()
 	{
 		this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
 	};
@@ -158,7 +175,7 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 		this.myClock.update(currTime);
 	};
 
-	initLights() 
+	initLights()
 	{
 		this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
 		// this.setGlobalAmbientLight(0,0,0, 1.0);
@@ -166,7 +183,7 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 		// Positions for four lights
 		this.lights[0].setPosition(4, 6, 1, 1);
 		this.lights[0].setVisible(true); // show marker on light position (different from enabled)
-		
+
 		// this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
 		this.lights[1].setPosition(-4, 6, 1, 1);
 		this.lights[1].setVisible(true); // show marker on light position (different from enabled)
@@ -180,7 +197,7 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 		// this.lights[0].setAmbient(0, 0, 0, 1);
 		this.lights[0].setAmbient(0.5, 0.5, 0.5, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[0].setSpecular(1,1,0,1);	
+		this.lights[0].setSpecular(1,1,0,1);
 		this.lights[0].enable();
 
 		this.lights[1].setAmbient(0, 0, 0, 1);
@@ -189,7 +206,7 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 
 		this.lights[2].setAmbient(0, 0, 0, 1);
 		this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[2].setSpecular(1,1,1,1);	
+		this.lights[2].setSpecular(1,1,1,1);
 
 		//kc
 		this.lights[2].setConstantAttenuation(0)
@@ -202,7 +219,7 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 
 		this.lights[3].setAmbient(0, 0, 0, 1);
 		this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[3].setSpecular(1,1,0,1);	
+		this.lights[3].setSpecular(1,1,0,1);
 		//kc
 		this.lights[3].setConstantAttenuation(0)
 		//kl
@@ -218,14 +235,14 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
         this.lights[4].update();
 	};
 
-	updateLights() 
+	updateLights()
 	{
 		for (var i = 0; i < this.lights.length; i++)
 			this.lights[i].update();
 	}
 
 
-	display() 
+	display()
 	{
 		// ---- BEGIN Background, camera and axis setup
 
@@ -253,21 +270,21 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 		// ---- BEGIN Scene drawing section
 
 		// Floor
-		this.floorAppearance.apply();
+	/*	this.floorAppearance.apply();
 		this.pushMatrix();
 			this.translate(7.5, 0, 7.5);
 			this.rotate(-90 * degToRad, 1, 0, 0);
 			this.scale(15, 15, 0.2);
 			// this.floorAppearance.apply();
 			this.floor.display();
-		this.popMatrix();
+		this.popMatrix(); */
 
 		// Left Wall
 		// this.pushMatrix();
 		// 	this.translate(0, 4, 7.5);
 		// 	this.rotate(90 * degToRad, 0, 1, 0);
 		// 	this.scale(15, 8, 0.2);
-		// 	this.windowAppearance.apply();	
+		// 	this.windowAppearance.apply();
 		// 	this.leftWindow.display();
 		// this.popMatrix();
 
@@ -277,7 +294,7 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 		// this.popMatrix();
 		// Plane Wall
 		// this.materialDefault.apply();
-		// this.windowAppearance.apply();	
+		// this.windowAppearance.apply();
 		// this.pushMatrix();
 		// 	this.translate(0, 4, 7.5);
 		// 	this.rotate(90 * degToRad, 0, 1, 0);
@@ -327,7 +344,7 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 		// ---- END Scene drawing section
 
 		this.pushMatrix();
-		
+
 		// this.translate(3,1,-2);
 		// this.rotate(-Math.PI/2, 1, 0, 0);
 		// this.scale(1,1,3);
@@ -339,7 +356,7 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 
 
 		this.pushMatrix();
-		
+
 		// this.translate(3,1,-2);
 		// this.rotate(-Math.PI/2, 1, 0, 0);
 		// this.scale(1,1,3);
@@ -359,11 +376,10 @@ this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 		this.pushMatrix();
 		this.vehicle.display();
 		this.popMatrix();
-		
+
 		//TERRAIN
 		this.pushMatrix();
 		this.terrain.display();
 		this.popMatrix();
 	};
 };
-
