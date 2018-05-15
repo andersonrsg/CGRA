@@ -9,7 +9,7 @@ var BOARD_B_DIVISIONS = 100;
 var tableTexture = "../resources/images/table.png"
 var boardTexture = "../resources/images/board.png"
 var floorTexture = "../resources/images/floor.png"
-var dirtyFloorTexture = "../resources/images/dirtyFloor.png"
+var dirtTexture = "../resources/images/dirt.png"
 var slidesTexture = "../resources/images/slides.png"
 var windowTexture = "../resources/images/window.png"
 var clockTexture = "../resources/images/clock.png"
@@ -32,8 +32,7 @@ class LightingScene extends CGFscene
 		this.enableTextures(true);
 
 		// this.oldCurrTime = 0;
-
-		this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 		this.gl.clearDepth(100.0);
 		this.gl.enable(this.gl.DEPTH_TEST);
 		this.gl.enable(this.gl.CULL_FACE);
@@ -134,6 +133,13 @@ class LightingScene extends CGFscene
 
 		this.vehicle = new MyVehicle(this);
 
+		this.terrain = new MyTerrain(this, 1, 0, 1, 0, 1,50,50)
+
+		this.dirtAppearance = new CGFappearance(this);
+		this.dirtAppearance.setSpecular(0,0.2,0.2,0.2);
+		this.dirtAppearance.setShininess(10);
+		this.dirtAppearance.setDiffuse(1,1,1,1);
+		this.dirtAppearance.loadTexture(dirtTexture);
 
 
 
@@ -353,6 +359,11 @@ class LightingScene extends CGFscene
 		this.pushMatrix();
 		this.vehicle.display();
 		this.popMatrix();
-
+		
+		//TERRAIN
+		this.pushMatrix();
+		this.terrain.display();
+		this.popMatrix();
 	};
 };
+
