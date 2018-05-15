@@ -37,6 +37,7 @@ class LightingScene extends CGFscene
 		this.Seilaoq = true;
 		this.speed = 3;
 
+		this.keysPressed=false;
 
 
 		// this.oldCurrTime = 0;
@@ -149,6 +150,13 @@ class LightingScene extends CGFscene
 		this.dirtAppearance.setDiffuse(1,1,1,1);
 		this.dirtAppearance.loadTexture(dirtTexture);
 
+		this.frontLeftLght = new CGFlight(this, "fl");
+		this.frontLeftLght.setPosition(0,1,0,1);
+
+		this.frontLeftLght.setAmbient(0.5, 0, 0, 1);
+		this.frontLeftLght.setDiffuse(1.0, 0, 0, 1.0);
+		this.frontLeftLght.setSpecular(1,0,0,1);
+
 
 
 		this.setUpdatePeriod(100);
@@ -164,6 +172,17 @@ class LightingScene extends CGFscene
 		// this.oldCurrTime = currTime;
 
 		this.myClock.update(currTime);
+
+		if (!this.keysPressed) {
+			if (this.vehicle.acceleration > 0) {
+				this.vehicle.acceleration -= 0.01;
+			}
+			if (this.vehicle.acceleration < 0) {
+				this.vehicle.acceleration += 0.01;
+			}
+		}
+
+		this.checkKeys();		
 	};
 
 	initLights() 
@@ -224,6 +243,10 @@ class LightingScene extends CGFscene
         this.lights[4].setDiffuse(1.0,1.0,1.0,1.0);
         this.lights[4].enable();
         this.lights[4].update();
+
+
+
+
 	};
 
 	updateLights() 
@@ -241,6 +264,47 @@ class LightingScene extends CGFscene
 		// }
 	};
 
+	checkKeys()
+	{
+		var text="Keys pressed: ";
+		if (this.gui.isKeyPressed("KeyW"))
+		{
+			text += " W ";
+			this.keysPressed = true;
+
+			if (this.vehicle.acceleration < 0.3 && this.vehicle.acceleration > -0.9 ) {
+				this.vehicle.acceleration += 0.01;	
+			}
+			
+		}
+		if (this.gui.isKeyPressed("KeyS"))
+		{
+			text += " S ";
+			this.keysPressed = true;
+			if (this.vehicle.acceleration < 0.3 && this.vehicle.acceleration > -0.9 ) {
+				this.vehicle.acceleration -= 0.01;	
+			}
+		}
+		if (this.gui.isKeyPressed("KeyA"))
+		{
+			text += " A ";
+			this.keysPressed = true;
+			if (this.vehicle.acceleration != 0) {
+				this.vehicle.angleAlpha += 0.01;	
+			}
+		}
+		if (this.gui.isKeyPressed("KeyD"))
+		{
+			text += " D ";
+			this.keysPressed = true;
+			if (this.vehicle.acceleration != 0) {
+				this.vehicle.angleAlpha -= 0.01;	
+			}
+		}
+
+		if (this.keysPressed)
+			console.log(text);
+	}
 
 	display() 
 	{
@@ -268,7 +332,7 @@ class LightingScene extends CGFscene
 		if (this.Luzes) {
 
 		} else {
-			
+
 		}
 
 
@@ -382,7 +446,19 @@ class LightingScene extends CGFscene
 
 
 		// CAR
+
 		this.pushMatrix();
+		
+		this.translate(this.vehicle.acceleration, 0, 0);
+		this.rotate(this.vehicle.angleAlpha, 0, this.vehicle.angleAlpha, 0);
+		
+		//if luzes ligadas
+
+
+		this.frontLeftLght.enable();
+		this.frontLeftLght.update();
+
+
 		this.vehicle.display();
 		this.popMatrix();
 		
