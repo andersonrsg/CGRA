@@ -29,6 +29,8 @@ class MyWheel extends CGFobject {
 		this.clockMinute.setAngle(360 / 60 / 60 * aux);
 		this.clockHour.setAngle(  360 / 60 / 60 / 60 * aux);
 
+		testeeee
+		
 		this.oldCurrTime = currTime;
 	};*/
 
