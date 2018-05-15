@@ -1,11 +1,8 @@
-class MyTerrain extends Plane{
+class MyTerrain extends NewPlane{
 
-	constructor(scene, nrDivs, minS, maxS, minT, maxT, xScale, zScale)
+	constructor(scene, nrDivs, altimetry)
 	{
-		super(scene, nrDivs, minS, maxS, minT, maxT);
-
-    this.xScale = xScale;
-    this.zScale = zScale;
+		super(scene, nrDivs, 0, 1, 0, 1, altimetry);
 	};
 
   display(){
@@ -13,7 +10,7 @@ class MyTerrain extends Plane{
 
     this.scene.pushMatrix();
     this.scene.dirtAppearance.apply()
-    this.scene.scale(this.xScale, 1, this.zScale);
+    this.scene.scale(50, 1, 50);
     this.scene.rotate(-90 * degToRad, 1, 0, 0)
     super.display();
     this.scene.popMatrix();
