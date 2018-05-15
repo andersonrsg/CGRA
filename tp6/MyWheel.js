@@ -1,18 +1,13 @@
 class MyWheel extends CGFobject {
-	constructor(scene, slices, stacks, pos) {
+	constructor(scene, slices, stacks) {
 
 		super(scene);
 
 		this.slices = slices;
 		this.stacks = stacks;
 
-		if(pos == "right"){
-			this.circle = new MyCircle(this.scene, this.slices, this.stacks,0.5);
-		}
-		else{
-			this.circle = new MyCircle(this.scene, this.slices, this.stacks,0);
-		}
-		
+		this.circle = new MyCircle(this.scene, this.slices, this.stacks,0.5);
+
 		this.cilinder = new MyCilinder(this.scene, this.slices, this.stacks,0.5);
 
 		this.initBuffers();
@@ -29,8 +24,6 @@ class MyWheel extends CGFobject {
 		this.clockMinute.setAngle(360 / 60 / 60 * aux);
 		this.clockHour.setAngle(  360 / 60 / 60 / 60 * aux);
 
-		testeeee
-		
 		this.oldCurrTime = currTime;
 	};*/
 
