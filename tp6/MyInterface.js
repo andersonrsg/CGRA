@@ -6,8 +6,8 @@ class MyInterface extends CGFinterface {
 	 * MyInterface
 	 * @constructor
 	 */
- 	constructor () {
- 		super();
+ 	constructor (scene) {
+ 		super(scene);
  	}
 	
 	/**
