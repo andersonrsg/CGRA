@@ -10,6 +10,13 @@ class MyVehicle extends CGFobject {
 		this.wheelDiameter = 0.7;
 		this.side = 4
 
+		this.acceleration = 0;
+		this.angleAlpha = 1;
+
+		this.anchorX = 0;
+		this.anchorZ = 0;
+
+
 		this.myHood = new MyQuad(scene, 0, 1, 0, 1);
 		this.top = new MyQuad(scene, 0, 1, 0, 1);
 
@@ -23,19 +30,12 @@ class MyVehicle extends CGFobject {
 		this.windsheet = new MyQuad(scene, 0, 1, 0, 1);
 		this.frontEngine = new MyQuad(scene, 0, 1, 0, 1);
 
-		this.frontLeftLght = new CGFlight(scene, "fl");
-		this.frontLeftLght.setPosition(1,1,1,1);
-
-		this.frontLeftLght.setAmbient(0.5, 0, 0, 1);
-		this.frontLeftLght.setDiffuse(1.0, 0, 0, 1.0);
-		this.frontLeftLght.setSpecular(1,0,0,1);	
 
 		// this.frontLeftLght.setAmbient(0.5, 0.5, 0.5, 1);
 		// this.frontLeftLght.setDiffuse(1.0, 1.0, 1.0, 1.0);
 		// this.frontLeftLght.setSpecular(-1,-1,-1,1);	
 		
-		this.frontLeftLght.enable();
-		this.frontLeftLght.update();
+		
 
 
 		this.initBuffers();
@@ -191,7 +191,12 @@ class MyVehicle extends CGFobject {
 
 	display() {
 
+		this.scene.translate(-4, 0, -1);
+		
 		super.display();
+
+		
+
 
 		// this.scene.pushMatrix();
 		// this.windsheet.display();
