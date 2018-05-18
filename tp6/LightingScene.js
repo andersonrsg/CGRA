@@ -13,6 +13,13 @@ var dirtTexture = "../resources/images/dirtyFloor.png"
 var slidesTexture = "../resources/images/slides.png"
 var windowTexture = "../resources/images/window.png"
 var clockTexture = "../resources/images/clock.png"
+var purpleTexture = "../resources/images/roxo.png"
+var greenArmyTexture = "../resources/images/verde_tropa.png"
+var blueTexture = "../resources/images/azul_turquesa.png"
+var camuflageTexture = "../resources/images/camuflagem_militar.png"
+var carbonTexture = "../resources/images/fibra_de_carbono.png"
+var redTexture = "../resources/images/vermelho.png"
+var yellowTexture = "../resources/images/amarelo.png"
 
 class LightingScene extends CGFscene
 {
@@ -32,8 +39,8 @@ class LightingScene extends CGFscene
 		this.enableTextures(true);
 
 		// Initial Config
-		this.Eixos = false; 
-		this.Luzes = false; 
+		this.Eixos = false;
+		this.Luzes = false;
 		this.Seilaoq = true;
 		this.speed = 3;
 
@@ -137,12 +144,55 @@ class LightingScene extends CGFscene
 		this.materialB.setSpecular(0.8,0.8,0.8,1);
 		this.materialB.setShininess(120);
 
+		//CAR TEXTURES
+
+		this.purpleCar = new CGFappearance(this);
+		this.purpleCar.setSpecular(0,0.2,0.2,0.2);
+		this.purpleCar.setShininess(10);
+		this.purpleCar.setDiffuse(1,1,1,1);
+		this.purpleCar.loadTexture(purpleTexture);
+
+		this.blueCar = new CGFappearance(this);
+		this.blueCar.setSpecular(0,0.2,0.2,0.2);
+		this.blueCar.setShininess(10);
+		this.blueCar.setDiffuse(1,1,1,1);
+		this.blueCar.loadTexture(blueTexture);
+
+		this.armyCar = new CGFappearance(this);
+		this.armyCar.setSpecular(0,0.2,0.2,0.2);
+		this.armyCar.setShininess(10);
+		this.armyCar.setDiffuse(1,1,1,1);
+		this.armyCar.loadTexture(greenArmyTexture);
+
+		this.camuflageCar = new CGFappearance(this);
+		this.camuflageCar.setSpecular(0,0.2,0.2,0.2);
+		this.camuflageCar.setShininess(10);
+		this.camuflageCar.setDiffuse(1,1,1,1);
+		this.camuflageCar.loadTexture(camuflageTexture);
+
+		this.carbonCar = new CGFappearance(this);
+		this.carbonCar.setSpecular(0,0.2,0.2,0.2);
+		this.carbonCar.setShininess(10);
+		this.carbonCar.setDiffuse(1,1,1,1);
+		this.carbonCar.loadTexture(carbonTexture);
+
+		this.redCar = new CGFappearance(this);
+		this.redCar.setSpecular(0,0.2,0.2,0.2);
+		this.redCar.setShininess(10);
+		this.redCar.setDiffuse(1,1,1,1);
+		this.redCar.loadTexture(redTexture);
+
+		this.yellowCar = new CGFappearance(this);
+		this.yellowCar.setSpecular(0,0.2,0.2,0.2);
+		this.yellowCar.setShininess(10);
+		this.yellowCar.setDiffuse(1,1,1,1);
+		this.yellowCar.loadTexture(yellowTexture);
+
 
 		// T6
 
 		this.vehicle = new MyVehicle(this);
 
-	//	this.terrain = new MyTerrain(this, 8, this.altimetry);
 
 		this.dirtAppearance = new CGFappearance(this);
 		this.dirtAppearance.setSpecular(0,0.2,0.2,0.2);
@@ -177,6 +227,14 @@ this.altimetry= [[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3 ],
 
 this.terrain = new MyTerrain(this, 8, this.altimetry);
 
+this.vehicleAppearances = [this.materialDefault, this.purpleCar, this.blueCar, this.armyCar,
+	 this.camuflageCar, this.carbonCar, this.redCar, this.yellowCar];
+
+this.vehicleAppearanceList = {"this.materialDefault" : 1, "this.purpleCar": 2, "this.blueCar": 3, "this.armyCar": 4,
+ "this.camuflageCar": 5, "this.carbonCar": 6, "this.redCar": 7, "this.yellowCar": 8};
+
+ this.currVehicleAppearance = 1;
+
 	};
 
 	initCameras()
@@ -199,7 +257,7 @@ this.terrain = new MyTerrain(this, 8, this.altimetry);
 			}
 		}
 
-		this.checkKeys();		
+		this.checkKeys();
 	};
 
 	initLights()
@@ -273,7 +331,7 @@ this.terrain = new MyTerrain(this, 8, this.altimetry);
 	}
 
 	Controles()
-	{ 
+	{
 		// if (this.Eixos == false) {
 		// 	this.axis = null;
 		// } else {
@@ -290,16 +348,16 @@ this.terrain = new MyTerrain(this, 8, this.altimetry);
 			this.keysPressed = true;
 
 			if (this.vehicle.acceleration < 0.3 && this.vehicle.acceleration > -0.9 ) {
-				this.vehicle.acceleration += 0.01;	
+				this.vehicle.acceleration += 0.01;
 			}
-			
+
 		}
 		if (this.gui.isKeyPressed("KeyS"))
 		{
 			text += " S ";
 			this.keysPressed = true;
 			if (this.vehicle.acceleration < 0.3 && this.vehicle.acceleration > -0.9 ) {
-				this.vehicle.acceleration -= 0.01;	
+				this.vehicle.acceleration -= 0.01;
 			}
 		}
 		if (this.gui.isKeyPressed("KeyA"))
@@ -307,7 +365,7 @@ this.terrain = new MyTerrain(this, 8, this.altimetry);
 			text += " A ";
 			this.keysPressed = true;
 			if (this.vehicle.acceleration != 0) {
-				this.vehicle.angleAlpha += 0.01;	
+				this.vehicle.angleAlpha += 0.01;
 			}
 		}
 		if (this.gui.isKeyPressed("KeyD"))
@@ -315,7 +373,7 @@ this.terrain = new MyTerrain(this, 8, this.altimetry);
 			text += " D ";
 			this.keysPressed = true;
 			if (this.vehicle.acceleration != 0) {
-				this.vehicle.angleAlpha -= 0.01;	
+				this.vehicle.angleAlpha -= 0.01;
 			}
 		}
 
@@ -344,7 +402,7 @@ this.terrain = new MyTerrain(this, 8, this.altimetry);
 		// Draw axis
 		if (this.Eixos != false) {
 			this.axis.display();
-		} 
+		}
 
 		if (this.Luzes) {
 
@@ -465,10 +523,11 @@ this.terrain = new MyTerrain(this, 8, this.altimetry);
 		// CAR
 
 		this.pushMatrix();
-		
+
+
 		this.translate(this.vehicle.acceleration, 0, 0);
 		this.rotate(this.vehicle.angleAlpha, 0, this.vehicle.angleAlpha, 0);
-		
+
 		//if luzes ligadas
 
 
