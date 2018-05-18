@@ -1,4 +1,4 @@
- 
+
 class MyInterface extends CGFinterface {
 
 
@@ -9,7 +9,7 @@ class MyInterface extends CGFinterface {
  	constructor (scene) {
  		super(scene);
  	}
-	
+
 	/**
 	 * init
 	 * @param {CGFapplication} application
@@ -26,9 +26,9 @@ class MyInterface extends CGFinterface {
 		// add a button:
 		// the first parameter is the object that is being controlled (in this case the scene)
 		// the identifier 'doSomething' must be a function declared as part of that object (i.e. a member of the scene class)
-		// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); }; 
+		// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); };
 
-		this.gui.add(this.scene, 'Controles');	
+		this.gui.add(this.scene, 'Controles');
 
 		// add a group of controls (and open/expand by defult)
 
@@ -48,6 +48,9 @@ class MyInterface extends CGFinterface {
 		// min and max values can be specified as parameters
 
 		this.gui.add(this.scene, 'speed', -5, 5);
+
+    //Car texture controls
+    this.gui.add(this.scene, 'CarTexture', this.scene.vehicleAppearanceList );
 
 		this.initKeys();
 
