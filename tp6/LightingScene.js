@@ -45,7 +45,7 @@ class LightingScene extends CGFscene
 		this.speed = 3;
 		this.CarTexture = 0;
 
-		this.keysPressed=false;
+		this.keysPressed = false;
 
 
 		// this.oldCurrTime = 0;
@@ -231,8 +231,8 @@ this.terrain = new MyTerrain(this, 8, this.altimetry);
 this.vehicleAppearances = [this.materialDefault, this.purpleCar, this.blueCar, this.armyCar,
 	 this.camuflageCar, this.carbonCar, this.redCar, this.yellowCar];
 
-this.vehicleAppearanceList = {Default : 1, Purple: 2, Blue: 3, Army: 4,
- Camuflage: 5, Carbon: 6, Red: 7, Yellow: 8};
+this.vehicleAppearanceList = {Default : 0, Purple: 1, Blue: 2, Army: 3,
+ Camuflage: 4, Carbon: 5, Red: 6, Yellow: 7};
 
  this.currVehicleAppearance = this.CarTexture;
 
