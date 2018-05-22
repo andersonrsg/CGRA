@@ -525,7 +525,7 @@ this.vehicleAppearanceList = {Default : 0, Purple: 1, Blue: 2, Army: 3,
 
 		this.pushMatrix();
 
-
+		this.translate(2,0,-9.5);
 		this.translate(this.vehicle.acceleration, 0, 0);
 		this.rotate(this.vehicle.angleAlpha, 0, this.vehicle.angleAlpha, 0);
 
