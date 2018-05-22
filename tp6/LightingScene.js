@@ -349,7 +349,7 @@ this.vehicleAppearanceList = {Default : 0, Purple: 1, Blue: 2, Army: 3,
 			this.keysPressed = true;
 
 			if (this.vehicle.acceleration < 0.3 && this.vehicle.acceleration > -0.9 ) {
-				this.vehicle.acceleration += 0.01;
+				this.vehicle.acceleration += 0.05;
 			}
 
 		}
