@@ -201,12 +201,12 @@ class LightingScene extends CGFscene
 		this.dirtAppearance.setDiffuse(1,1,1,1);
 		this.dirtAppearance.loadTexture(dirtTexture);
 
-		this.frontLeftLght = new CGFlight(this, "fl");
-		this.frontLeftLght.setPosition(0,1,0,1);
+		// this.frontLeftLght = new CGFlight(this, "fl");
+		// this.frontLeftLght.setPosition(0,1,0,1);
 
-		this.frontLeftLght.setAmbient(0.5, 0, 0, 1);
-		this.frontLeftLght.setDiffuse(1.0, 0, 0, 1.0);
-		this.frontLeftLght.setSpecular(1,0,0,1);
+		// this.frontLeftLght.setAmbient(0.5, 0, 0, 1);
+		// this.frontLeftLght.setDiffuse(1.0, 0, 0, 1.0);
+		// this.frontLeftLght.setSpecular(1,0,0,1);
 
 
 
@@ -249,14 +249,14 @@ this.vehicleAppearanceList = {Default : 0, Purple: 1, Blue: 2, Army: 3,
 
 		this.myClock.update(currTime);
 
-		if (!this.keysPressed) {
-			if (this.vehicle.acceleration > 0) {
-				this.vehicle.acceleration -= 0.01;
-			}
-			if (this.vehicle.acceleration < 0) {
-				this.vehicle.acceleration += 0.01;
-			}
-		}
+		// if (!this.keysPressed) {
+		// 	if (this.vehicle.acceleration > 0) {
+		// 		this.vehicle.acceleration -= 0.01;
+		// 	}
+		// 	if (this.vehicle.acceleration < 0) {
+		// 		this.vehicle.acceleration += 0.01;
+		// 	}
+		// }
 
 		this.checkKeys();
 	};
@@ -342,21 +342,28 @@ this.vehicleAppearanceList = {Default : 0, Purple: 1, Blue: 2, Army: 3,
 
 	checkKeys()
 	{
+		this.keysPressed = false;
 		var text="Keys pressed: ";
+
 		if (this.gui.isKeyPressed("KeyW"))
 		{
 			text += " W ";
 			this.keysPressed = true;
 
-			if (this.vehicle.acceleration < 0.3 && this.vehicle.acceleration > -0.9 ) {
-				this.vehicle.acceleration += 0.05;
+			if (this.vehicle.acceleration < 2) {
+				this.vehicle.acceleration += this.vehicle.speed;
 			}
+
+			// if (this.vehicle.acceleration < 0.3 && this.vehicle.acceleration > -0.9 ) {
+			// 	this.vehicle.acceleration += 0.05;
+			// }
 
 		}
 		if (this.gui.isKeyPressed("KeyS"))
 		{
 			text += " S ";
 			this.keysPressed = true;
+
 			if (this.vehicle.acceleration < 0.3 && this.vehicle.acceleration > -0.9 ) {
 				this.vehicle.acceleration -= 0.01;
 			}
@@ -365,21 +372,52 @@ this.vehicleAppearanceList = {Default : 0, Purple: 1, Blue: 2, Army: 3,
 		{
 			text += " A ";
 			this.keysPressed = true;
+
+			this.vehicle.wheelRotationAngle	= 1;
+			this.vehicle.Apressed = true;
 			if (this.vehicle.acceleration != 0) {
 				this.vehicle.angleAlpha += 0.01;
-			}
+			} 
 		}
+
 		if (this.gui.isKeyPressed("KeyD"))
 		{
 			text += " D ";
 			this.keysPressed = true;
+
+			this.vehicle.wheelRotationAngle = 1;
+			this.vehicle.Dpressed = true;
+
 			if (this.vehicle.acceleration != 0) {
+				
 				this.vehicle.angleAlpha -= 0.01;
 			}
 		}
 
-		if (this.keysPressed)
+		if (this.keysPressed) {
 			console.log(text);
+		} else {
+			this.vehicle.wheelRotationAngle	= 0;
+			this.vehicle.Apressed = false;
+			this.vehicle.Dpressed = false;
+			if (this.vehicle.acceleration >= 0)
+				this.vehicle.acceleration -= 0.01;
+		}
+
+		// if (this.keyAPressed || this.keySPressed) {
+		// 	if (this.keyAPressed) {
+		// 		this.vehicle.wheelRotationAngle = 1;
+		// 		this.vehicle.Apressed = true;
+		// 	} else {
+		// 		this.vehicle.wheelRotationAngle = 1;
+		// 		this.vehicle.Spressed = true;
+		// 	}
+		// } else {
+		// 	this.vehicle.wheelRotationAngle	= 0;
+		// 	this.vehicle.Apressed = false;
+		// 	this.vehicle.Spressed = true;
+		// }
+
 	}
 
 	display()
@@ -526,14 +564,14 @@ this.vehicleAppearanceList = {Default : 0, Purple: 1, Blue: 2, Army: 3,
 		this.pushMatrix();
 
 		this.translate(2,0,-9.5);
-		this.translate(this.vehicle.acceleration, 0, 0);
-		this.rotate(this.vehicle.angleAlpha, 0, this.vehicle.angleAlpha, 0);
+		this.translate(this.vehicle.acceleration * this.vehicle.position, 0, 0);
+		this.rotate(this.vehicle.angleAlpha, 0, 1, 0);
 
 		//if luzes ligadas
 
 
-		this.frontLeftLght.enable();
-		this.frontLeftLght.update();
+		// this.frontLeftLght.enable();
+		// this.frontLeftLght.update();
 
 
 		this.vehicle.display();

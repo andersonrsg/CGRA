@@ -11,10 +11,18 @@ class MyVehicle extends CGFobject {
 		this.side = 4
 
 		this.acceleration = 0;
-		this.angleAlpha = 1;
+		this.position = 1;
+		this.angleAlpha = 0;
+		this.speed = 0.05;
 
 		this.anchorX = 0;
 		this.anchorZ = 0;
+
+		this.anchor = 0;
+
+		this.wheelRotationAngle = 0;
+		this.Apressed = false;
+		this.Dpressed = false;
 
 
 		this.myHood = new MyQuad(scene, 0, 1, 0, 1);
@@ -431,6 +439,14 @@ class MyVehicle extends CGFobject {
 
 		this.scene.pushMatrix();
 		this.scene.translate(0.4+this.wheelDiameter/2 + 1 + 2*0.4 + 2*0.35,this.wheelDiameter/2,1.95);
+
+		if (this.Apressed == true && this.Dpressed == false) {
+			this.scene.rotate(Math.PI/4, 0, 1, 0);	
+		}
+			if (this.Dpressed == true && this.Apressed == false) {
+				this.scene.rotate(-Math.PI/4, 0, 1, 0);
+			}
+
 		this.scene.scale(0.35,0.35,1);
 		this.frontRightWheel.display();
 		this.scene.popMatrix();
@@ -438,6 +454,16 @@ class MyVehicle extends CGFobject {
 		this.scene.pushMatrix();
 		this.scene.translate(0.4+this.wheelDiameter/2 + 1 + 2*0.4 + 2*0.35,this.wheelDiameter/2,0.55);
 		this.scene.rotate(Math.PI, 0, 1, 0);
+
+			if (this.Apressed == true && this.Dpressed == false) {
+				this.scene.rotate(Math.PI/4, 0, 1, 0);
+
+			}
+		if (this.Dpressed == true && this.Apressed == false) {
+			this.scene.rotate(-Math.PI/4, 0, 1, 0);
+		}
+	
+
 		this.scene.scale(0.35,0.35,1);
 		this.frontLeftWheel.display();
 		this.scene.popMatrix();
