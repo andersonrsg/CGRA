@@ -43,7 +43,15 @@ class LightingScene extends CGFscene
 		this.Luzes = false;
 		this.Seilaoq = true;
 		this.speed = 3;
-		this.CarTexture = 0;
+
+
+		// Car Textures
+		this.RoofTexture = 0;
+		this.SideTexture = 1;
+		this.WindsheetTexture = 2;
+		this.BackTexture = 3;
+		this.CapoTexture = 4;
+		this.MotorTexture = 5;
 
 		this.keysPressed = false;
 
@@ -231,10 +239,10 @@ this.terrain = new MyTerrain(this, 8, this.altimetry);
 this.vehicleAppearances = [this.materialDefault, this.purpleCar, this.blueCar, this.armyCar,
 	 this.camuflageCar, this.carbonCar, this.redCar, this.yellowCar];
 
-this.vehicleAppearanceList = {Default : 0, Purple: 1, Blue: 2, Army: 3,
+this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
  Camuflage: 4, Carbon: 5, Red: 6, Yellow: 7};
 
- this.currVehicleAppearance = this.CarTexture;
+ // this.currVehicleAppearance = this.CarTexture;
 
 	};
 
@@ -257,6 +265,7 @@ this.vehicleAppearanceList = {Default : 0, Purple: 1, Blue: 2, Army: 3,
 		// 		this.vehicle.acceleration += 0.01;
 		// 	}
 		// }
+
 
 		this.checkKeys();
 	};
@@ -572,6 +581,8 @@ this.vehicleAppearanceList = {Default : 0, Purple: 1, Blue: 2, Army: 3,
 
 		// this.frontLeftLght.enable();
 		// this.frontLeftLght.update();
+
+		// this.vehicle.applyTexture(vehicleAppearanceList(this.selectedCarTexture));
 
 
 		this.vehicle.display();

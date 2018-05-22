@@ -49,8 +49,15 @@ class MyInterface extends CGFinterface {
 
 		this.gui.add(this.scene, 'speed', -5, 5);
 
-    //Car texture controls
-    this.gui.add(this.scene, 'CarTexture', this.scene.vehicleAppearanceList );
+		var groupCarTexture = this.gui.addFolder("Texture");
+
+    	//Car texture controls
+    	groupCarTexture.add(this.scene, 'RoofTexture', this.scene.vehicleAppearanceList );
+    	groupCarTexture.add(this.scene, 'SideTexture', this.scene.vehicleAppearanceList );
+    	groupCarTexture.add(this.scene, 'WindsheetTexture', this.scene.vehicleAppearanceList );
+    	groupCarTexture.add(this.scene, 'BackTexture', this.scene.vehicleAppearanceList );
+    	groupCarTexture.add(this.scene, 'CapoTexture', this.scene.vehicleAppearanceList );
+    	groupCarTexture.add(this.scene, 'MotorTexture', this.scene.vehicleAppearanceList );
 
 		this.initKeys();
 

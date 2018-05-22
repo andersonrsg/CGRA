@@ -24,6 +24,7 @@ class MyVehicle extends CGFobject {
 		this.Apressed = false;
 		this.Dpressed = false;
 
+		// this.roofTexture;
 
 		this.myHood = new MyQuad(scene, 0, 1, 0, 1);
 		this.top = new MyQuad(scene, 0, 1, 0, 1);
@@ -70,6 +71,7 @@ class MyVehicle extends CGFobject {
 	update(currTime) {
 		
 	};
+
 
 	initBuffers() {
 
@@ -228,7 +230,7 @@ class MyVehicle extends CGFobject {
 		// this.scene.popMatrix();
 
 
-		// Atrás
+		this.scene.vehicleAppearances[this.scene.BackTexture].apply();
 
 		this.scene.pushMatrix();
 		this.scene.translate(0, 1+this.ground, 2.5/2);
@@ -239,6 +241,8 @@ class MyVehicle extends CGFobject {
 		this.scene.popMatrix();
 
 
+
+		this.scene.vehicleAppearances[this.scene.SideTexture].apply();
 
 		// Lado direito
 		// Parachoque trazeiro
@@ -337,7 +341,7 @@ class MyVehicle extends CGFobject {
 		var x = 1.1;
 		var z = 2.5;
 
-		this.scene.tableAppearance.apply();
+		this.scene.vehicleAppearances[this.scene.CapoTexture].apply();
 
 		this.scene.pushMatrix();
 		this.scene.translate(this.side - (x/2), 1+this.ground, 2.5/2);
@@ -352,7 +356,7 @@ class MyVehicle extends CGFobject {
 		// var x = 1.1;
 		// var z = 2.5;
 
-		this.scene.windowAppearance.apply();
+		this.scene.vehicleAppearances[this.scene.WindsheetTexture].apply();
 
 		this.scene.pushMatrix();
 		this.scene.translate(this.side - this.partDist-this.wheelDiameter, 1/2+1+this.ground, 2.5/2);
@@ -363,17 +367,13 @@ class MyVehicle extends CGFobject {
 		this.scene.popMatrix();
 
 
-		this.scene.tableAppearance.apply();
-
-
-
 
 		//Frente / Motor
 		//Dimensoes Frente / Motor
 		// var x = 1.1;
 		// var z = 2.5;
 
-		this.scene.floorAppearance.apply();
+		this.scene.vehicleAppearances[this.scene.MotorTexture].apply();
 
 		this.scene.pushMatrix();
 		this.scene.translate(this.side, 1/2+this.ground, 2.5/2);
@@ -384,9 +384,9 @@ class MyVehicle extends CGFobject {
 		this.scene.popMatrix();
 
 
-		this.scene.tableAppearance.apply();
+		// ROOF
 
-
+		this.scene.vehicleAppearances[this.scene.RoofTexture].apply();
 		// Dimensoes Top
 		x = this.partDist * 3 + this.wheelDiameter + 1;
 		// Parte de cima
