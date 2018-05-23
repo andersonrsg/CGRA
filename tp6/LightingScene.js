@@ -242,6 +242,8 @@ this.vehicleAppearances = [this.materialDefault, this.purpleCar, this.blueCar, t
 this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
  Camuflage: 4, Carbon: 5, Red: 6, Yellow: 7};
 
+ this.crane = new MyCrane(this);
+
  // this.currVehicleAppearance = this.CarTexture;
 
 	};
@@ -389,7 +391,7 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 				this.vehicle.angleAlpha += 0.01;
 			} else if (this.vehicle.acceleration < 0) {
 				this.vehicle.angleAlpha -= 0.01;
-			} 
+			}
 		}
 
 		if (this.gui.isKeyPressed("KeyD"))
@@ -404,7 +406,7 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 				this.vehicle.angleAlpha -= 0.01;
 			} else if (this.vehicle.acceleration < 0) {
 				this.vehicle.angleAlpha += 0.01;
-			} 
+			}
 		}
 
 		if (this.keysPressed) {
@@ -417,7 +419,7 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 
 			if (this.vehicle.speed > 0) {
 				this.vehicle.speed -= 0.05;
-			} 
+			}
 			if (this.vehicle.speed < 0) {
 				this.vehicle.speed += 0.05;
 			}
@@ -592,7 +594,7 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 		this.pushMatrix();
 
 		this.translate(2,0,-9.5);
-		
+
 		this.rotate(this.vehicle.angleAlpha, 0, 1, 0);
 		this.translate(this.vehicle.anchorX, 0, this.vehicle.anchorZ);
 
@@ -612,5 +614,11 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 		this.pushMatrix();
 		this.terrain.display();
 		this.popMatrix();
+
+		//CRANE
+		this.pushMatrix();
+		this.crane.display();
+		this.popMatrix();
+
 	};
 };
