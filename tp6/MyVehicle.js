@@ -10,10 +10,14 @@ class MyVehicle extends CGFobject {
 		this.wheelDiameter = 0.7;
 		this.side = 4
 
-		this.acceleration = 0;
-		this.position = 1;
+		// Movement variables
+		this.acceleration = 0.05;
+		this.speed = 0;
+		this.maxSpeed = 0.1;
+		this.position = 0;
+
 		this.angleAlpha = 0;
-		this.speed = 0.05;
+		
 
 		this.anchorX = 0;
 		this.anchorZ = 0;
@@ -69,7 +73,18 @@ class MyVehicle extends CGFobject {
 	};
 
 	update(currTime) {
+
+
+		this.position += this.speed;
 		
+		this.anchorX = 0.5 * Math.cos(this.angleAlpha) * (this.position);// + this.anchorX);
+		this.anchorZ = 0.5 * Math.sin(this.angleAlpha) * (this.position);// + this.anchorZ);
+
+		console.log("Angle alpha" + this.angleAlpha);
+
+		console.log(this.anchorX);
+		console.log("Speed: " + this.speed)
+
 	};
 
 

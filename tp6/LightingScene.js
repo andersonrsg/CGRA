@@ -42,7 +42,7 @@ class LightingScene extends CGFscene
 		this.Eixos = false;
 		this.Luzes = false;
 		this.Seilaoq = true;
-		this.speed = 3;
+		this.Speed = 0.35;
 
 
 		// Car Textures
@@ -218,7 +218,7 @@ class LightingScene extends CGFscene
 
 
 
-		this.setUpdatePeriod(100);
+		this.setUpdatePeriod(1);
 
 		//alinea 6
 
@@ -256,6 +256,7 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 		// this.oldCurrTime = currTime;
 
 		this.myClock.update(currTime);
+		this.vehicle.update(currTime);
 
 		// if (!this.keysPressed) {
 		// 	if (this.vehicle.acceleration > 0) {
@@ -359,8 +360,8 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 			text += " W ";
 			this.keysPressed = true;
 
-			if (this.vehicle.acceleration < 2) {
-				this.vehicle.acceleration += this.vehicle.speed;
+			if (this.vehicle.speed <= this.vehicle.maxSpeed) {
+				this.vehicle.speed += this.vehicle.acceleration;
 			}
 
 			// if (this.vehicle.acceleration < 0.3 && this.vehicle.acceleration > -0.9 ) {
@@ -373,8 +374,8 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 			text += " S ";
 			this.keysPressed = true;
 
-			if (this.vehicle.acceleration < 0.3 && this.vehicle.acceleration > -0.9 ) {
-				this.vehicle.acceleration -= 0.01;
+			if (this.vehicle.speed >= -1 * this.vehicle.maxSpeed) {
+				this.vehicle.speed -= this.vehicle.acceleration;
 			}
 		}
 		if (this.gui.isKeyPressed("KeyA"))
@@ -384,8 +385,10 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 
 			this.vehicle.wheelRotationAngle	= 1;
 			this.vehicle.Apressed = true;
-			if (this.vehicle.acceleration != 0) {
+			if (this.vehicle.acceleration > 0) {
 				this.vehicle.angleAlpha += 0.01;
+			} else if (this.vehicle.acceleration < 0) {
+				this.vehicle.angleAlpha -= 0.01;
 			} 
 		}
 
@@ -397,10 +400,11 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 			this.vehicle.wheelRotationAngle = 1;
 			this.vehicle.Dpressed = true;
 
-			if (this.vehicle.acceleration != 0) {
-				
+			if (this.vehicle.acceleration > 0) {
 				this.vehicle.angleAlpha -= 0.01;
-			}
+			} else if (this.vehicle.acceleration < 0) {
+				this.vehicle.angleAlpha += 0.01;
+			} 
 		}
 
 		if (this.keysPressed) {
@@ -409,8 +413,14 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 			this.vehicle.wheelRotationAngle	= 0;
 			this.vehicle.Apressed = false;
 			this.vehicle.Dpressed = false;
-			if (this.vehicle.acceleration >= 0)
-				this.vehicle.acceleration -= 0.01;
+
+
+			if (this.vehicle.speed > 0) {
+				this.vehicle.speed -= 0.05;
+			} 
+			if (this.vehicle.speed < 0) {
+				this.vehicle.speed += 0.05;
+			}
 		}
 
 		// if (this.keyAPressed || this.keySPressed) {
@@ -447,6 +457,8 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 		// Update all lights used
 		this.updateLights();
 
+		////////////////// GUI UPDATES  //////////////////
+
 		// Draw axis
 		if (this.Eixos != false) {
 			this.axis.display();
@@ -457,6 +469,13 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 		} else {
 
 		}
+
+
+		this.vehicle.maxSpeed = this.Speed;
+
+
+
+		//////////////////////////////////////////////////
 
 
 		this.materialDefault.apply();
@@ -573,8 +592,9 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 		this.pushMatrix();
 
 		this.translate(2,0,-9.5);
-		this.translate(this.vehicle.acceleration * this.vehicle.position, 0, 0);
+		
 		this.rotate(this.vehicle.angleAlpha, 0, 1, 0);
+		this.translate(this.vehicle.anchorX, 0, this.vehicle.anchorZ);
 
 		//if luzes ligadas
 
