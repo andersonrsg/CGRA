@@ -58,6 +58,8 @@ class LightingScene extends CGFscene
 
 		this.keysPressed = false;
 
+		this.posX = 30;
+		this.posZ = 30;
 
 		this.oldCurrTime = 0;
 		this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
@@ -205,22 +207,24 @@ class LightingScene extends CGFscene
 
 
 
-
-		//alinea 6
-
 		//example for nrDivs = 8 -> grid of 9x9 vertices
-		this.altimetry= [[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3 ],
-		[ 2.0 , 3.0 , 2.0, 4.0, 7.5, 6.4, 4.3, 1.3 ],
-		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
-		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
-		[ 0.0 , 0.0 , 2.0, 4.0, 2.5, 2.4, 0.0, 0.0 ],
-		[ 0.0 , 0.0 , 2.0, 4.0, 3.5, 2.4, 0.0, 0.0 ],
-		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
-		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
-		[ 2.0 , 3.0 , 2.0, 1.0, 2.5, 2.4, 2.3, 1.3 ]
+		this.altimetry= [
+		[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 2.3, 1.2, 1.1, 1.0, 0.0, 0.0 ],
+		[ 2.0 , 3.0 , 2.0, 4.0, 7.5, 6.4, 4.3, 2.3, 3.2, 2.1, 3.0, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 2.6, 2.2, 2.1, 2.0, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 2.0, 4.0, 2.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 2.0, 4.0, 3.5, 2.4, 0.0, 0.0, 2.2, 3.1, 0.0, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 3.2, 2.1, 3.0, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.2, 3.0, 2.0, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 2.0, 0.0, 0.0, 0.0, 0.0, 1.3, 3.2, 2.5, 2.0, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 2.0, 4.0, 3.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+		[ 2.0 , 3.0 , 2.0, 3.0, 3.5, 3.4, 3.3, 2.3, 3.2, 2.1, 3.0, 2.0, 4.0 ]
 		];
 
-		this.terrain = new MyTerrain(this, 8, this.altimetry);
+		this.terrain = new MyTerrain(this, 12, this.altimetry);
 
 		this.vehicleAppearances = [this.materialDefault, this.purpleCar, this.blueCar, this.armyCar,
 		this.camuflageCar, this.carbonCar, this.redCar, this.yellowCar];
@@ -236,7 +240,7 @@ class LightingScene extends CGFscene
 
 initCameras()
 {
-	this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
+	this.camera = new CGFcamera(0.8, 0.1, 700, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
 };
 
 update(currTime) {
@@ -510,7 +514,8 @@ initLights()
 		this.vehicle.maxSpeed = this.Speed;
 
 
-
+		this.posX = this.vehicle.posX;
+		this.posZ = this.vehicle.posZ;
 		//////////////////////////////////////////////////
 
 
@@ -524,9 +529,9 @@ initLights()
 
 		// ---- END Scene drawing section
 
-
+		
 		this.pushMatrix();
-
+		// this.translate(-2, 0, -1.25);
 		// this.translate(2,0,-9.5);
 
 		// this.rotate(this.vehicle.angleAlpha, 0, 1, 0);

@@ -104,12 +104,43 @@ class MyVehicle extends CGFobject {
 		var carTime = currTime / 100;
 
 		// Speed Parameters
-		this.speedX = this.speed * Math.cos(-this.angleAlpha);// - Math.PI/2);
-		this.speedZ = this.speed * Math.sin(this.angleAlpha);// + Math.PI/2);
+		this.speedX = this.speed * Math.cos(-this.angleAlpha);
+		this.speedZ = this.speed * Math.sin(this.angleAlpha);
 
     	//Position
-    	this.posX += this.speedX * carTime;
-    	this.posZ += this.speedZ * carTime;
+
+    	var nextPositionX = this.posX += this.speedX * carTime;
+    	var nextPositionZ = this.posZ += this.speedZ * carTime;
+
+    	var nextXRounded = 0;
+    	var nextZRounded = 0;
+
+    	if (Math.abs(nextPositionX - Math.floor(nextPositionX)) > 0.49) {
+    		nextXRounded = Math.abs(Math.ceil(nextPositionX/2));
+    	} else {
+ 			nextXRounded = Math.abs(Math.floor(nextPositionX/2));
+    	}
+    	if (Math.abs(nextPositionZ - Math.floor(nextPositionZ)) > 0.49) {
+    		nextZRounded = Math.abs(Math.ceil(nextPositionZ/2));
+    	} else {
+ 			nextZRounded = Math.abs(Math.floor(nextPositionZ/2));
+    	}
+
+    	console.log("nextX: "+nextPositionX);
+    	console.log("nextZ: " +nextPositionX);
+
+    	console.log("rounded: "+nextXRounded);
+    	console.log("rounded: "+ nextZRounded);
+
+    	if (this.scene.altimetry[nextXRounded][nextZRounded] == 0.0) {
+    		this.posX = nextPositionX;
+    		this.posZ = nextPositionZ;
+   	 	} else {
+   	 		console.log("error");
+   	 		this.posX = this.posX;
+   	 		this.posZ = this.posZ;
+   	 		this.speed = 0;
+   	 	}
 
 
     	// this.position += this.speed;
@@ -136,146 +167,15 @@ class MyVehicle extends CGFobject {
 		this.indices = [];
 		this.normals = [];
 
-		var partDist = this.partDist;
-		var ground = this.ground;
-		var width = this.width;
-		var wheelDiameter = this.wheelDiameter;
-		var side = this.side;
-
-
-		// Atrás, Baixo
-		// this.vertices.push(0, ground, 0);
-		// this.vertices.push(0, ground, 2.5);
-		// this.vertices.push(0, ground + 2, 2.5);
-		// this.vertices.push(0, ground + 2, 0);
-
-		// this.indices.push(0, 1, 2);
-		// this.indices.push(0, 2, 3);
-
-		// this.normals.push(-1, 0, 0);
-		// this.normals.push(-1, 0, 0);
-		// this.normals.push(-1, 0, 0);
-		// this.normals.push(-1, 0, 0);
-
-		// // Lado Direito
-
-		// this.vertices.push(0, ground + 0.55, width);									//4
-		// this.vertices.push(side - partDist - wheelDiameter, ground + 0.55, width);		//5
-		// this.vertices.push(side - partDist - wheelDiameter, ground + 2, width);			//6
-		// this.vertices.push(0, ground + 2, width);										//7
-		// this.indices.push(4, 5, 6);
-		// this.indices.push(4, 6, 7);
-		// this.normalsRightSide(4);
-
-
-		// this.vertices.push(0, ground, width);											//8
-		// this.vertices.push(0 + partDist, ground, width);								//9
-		// this.vertices.push(0 + partDist, ground+0.55, width);							//10
-		// this.indices.push(8, 9, 10);
-		// this.indices.push(8, 10, 4);
-		// this.normalsRightSide(3);
-
-
-		// this.vertices.push(partDist+wheelDiameter			, ground		, width);					//11
-		// this.vertices.push(side - partDist - wheelDiameter	, ground		, width);					//12
-		// this.vertices.push(partDist+wheelDiameter			, ground + 0.55	, width);					//13
-		// this.indices.push(11, 12, 5);
-		// this.indices.push(11, 5, 13);
-		// this.normalsRightSide(3);
-
-
-
-		// this.vertices.push(side - partDist					, ground + 0.55 		, width);	//14
-		// this.vertices.push(side - partDist 					, ground + 1	, width);	//15
-		// this.vertices.push(side - partDist - wheelDiameter	, ground + 1	, width);	//16
-		// this.indices.push(5, 14, 15);
-		// this.indices.push(5, 15, 16);
-		// this.normalsRightSide(3);
-
-
-		// this.vertices.push(side - partDist	, ground 		, width);	//17
-		// this.vertices.push(side 			, ground 		, width);	//18
-		// this.vertices.push(side				, ground + 1	, width);	//19
-		// this.indices.push(17, 18, 19);
-		// this.indices.push(17, 19, 15);
-		// this.normalsRightSide(3);
-
-
-
-		// // Lado Esquerdo
-
-		// this.vertices.push(0, ground + 0.55, 0);									//20
-		// this.vertices.push(side - partDist - wheelDiameter, ground + 0.55, 0);		//21
-		// this.vertices.push(side - partDist - wheelDiameter, ground + 2, 0);			//22
-		// this.vertices.push(0, ground + 2, 0);										//23
-		// this.indices.push(21, 20, 23);
-		// this.indices.push(21, 23, 22);
-		// this.normalsLeftSide(4);
-
-
-		// this.vertices.push(0, ground, 0);											//24
-		// this.vertices.push(0 + partDist, ground, 0);								//25
-		// this.vertices.push(0 + partDist, ground+0.55, 0);							//26
-		// this.indices.push(25, 24, 20);
-		// this.indices.push(25, 20, 26);
-		// this.normalsLeftSide(3);
-
-
-		// this.vertices.push(partDist+wheelDiameter			, ground		, 0);					//27
-		// this.vertices.push(side - partDist - wheelDiameter	, ground		, 0);					//28
-		// this.vertices.push(partDist+wheelDiameter			, ground + 0.55	, 0);					//29
-		// this.indices.push(28, 27, 29);
-		// this.indices.push(28, 29, 21);
-		// this.normalsLeftSide(3);
-
-
-
-		// this.vertices.push(side - partDist					, ground + 0.55 		, 0);	//30
-		// this.vertices.push(side - partDist 					, ground + 1	, 0);	//31
-		// this.vertices.push(side - partDist - wheelDiameter	, ground + 1	, 0);	//32
-		// this.indices.push(30, 21, 32);
-		// this.indices.push(30, 32, 31);
-		// this.normalsLeftSide(3);
-
-
-		// this.vertices.push(side - partDist	, ground 		, 0);	//33
-		// this.vertices.push(side 			, ground 		, 0);	//34
-		// this.vertices.push(side				, ground + 1	, 0);	//35
-		// this.indices.push(34, 33, 31);
-		// this.indices.push(34, 31, 35);
-		// this.normalsLeftSide(3);
-
-
-
-		
-
-
-
-
-
-
-
-
-
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 
 	};
 
-	// normalsRightSide(count) {
-	// 	for (var i = 0; i < count ; i++) {
-	// 		this.normals.push(0, 0, 1);
-	// 	}
-	// };
-
-	// normalsLeftSide(count) {
-	// 	for (var i = 0; i < count ; i++) {
-	// 		this.normals.push(0, 0, -1);
-	// 	}
-	// };
 
 	display() {
 		
+		// this.scene.translate(-2, 0, -1.25);
 		super.display();
 		// this.scene.rotate(this.angleAlpha, 0, 1, 0);
 		// this.scene.pushMatrix();
