@@ -259,18 +259,21 @@ initLights()
 		// // this.lights[0].setVisible(true); // show marker on light position (different from enabled)
 
 		// this.lights[0].setPosition(10.5, 6.0, 1.0, 1.0);
-		this.lights[0].setPosition(-4, 6, 1, 1);
 		
-
+		this.lights[0].setPosition(-4, 6, 1, 1);
 		this.lights[0].setAmbient(0, 0, 0, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
 		this.lights[0].enable();
 
-
-		this.lights[1].setPosition(0, 6.3, -14.2, 1);
-		this.lights[1].setVisible(true); 
+		this.lights[1].setPosition(3, 6, 1, 1);
 		this.lights[1].setAmbient(0, 0, 0, 1);
 		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		this.lights[1].enable();
+
+		this.lights[2].setPosition(0, 6.3, -14.2, 1);
+		this.lights[2].setVisible(true); 
+		this.lights[2].setAmbient(0, 0, 0, 1);
+		this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
 
 
 		
@@ -550,10 +553,10 @@ initLights()
 
 		// Luzes
 		if (this.Poste_1 == true) {
-			this.lights[1].enable();
+			this.lights[2].enable();
 		} 
 		if (this.Poste_1 == false) {
-			this.lights[1].disable();
+			this.lights[2].disable();
 		}
 
 		// if (this.Poste_2 == true) {
@@ -567,10 +570,10 @@ initLights()
 		// }
 
 		if (this.Luzes_Visiveis == true) {
-			for (var i = 0; i < 2 ; i++) 
+			for (var i = 0; i < this.lights.length ; i++) 
 				this.lights[i].setVisible(true);
 		} else {
-			for (var i = 0; i < 2 ; i++) 
+			for (var i = 0; i < this.lights.length ; i++) 
 				this.lights[i].setVisible(false);
 		}
 

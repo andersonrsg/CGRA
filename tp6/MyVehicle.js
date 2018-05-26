@@ -16,6 +16,7 @@ class MyVehicle extends CGFobject {
 		this.maxSpeed = 0.1;
 
 		this.posX = 0;
+		this.posY = 0;
 		this.posZ = -9;
 
 		this.speedX = 0;
@@ -282,7 +283,7 @@ class MyVehicle extends CGFobject {
 		// this.scene.popMatrix();
 		
 		// this.scene.pushMatrix();
-		this.scene.translate(this.posX, 0, this.posZ);
+		this.scene.translate(this.posX, this.posY, this.posZ);
 		this.scene.rotate(-this.angleAlpha, 0, 1, 0);
 
 		// this.scene.pushMatrix();
