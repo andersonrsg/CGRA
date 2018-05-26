@@ -40,7 +40,7 @@ class MyInterface extends CGFinterface {
 
 		group.add(this.scene, 'Eixos');
 		group.add(this.scene, 'Luzes');
-		group.add(this.scene, 'Seilaoq');
+		group.add(this.scene, 'Desaceleracao_Continua');
 
 		// add a slider
 		// must be a numeric variable of the scene, initialized in scene.init e.g.

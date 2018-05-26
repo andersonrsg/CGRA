@@ -41,7 +41,7 @@ class LightingScene extends CGFscene
 		// Initial Config
 		this.Eixos = false;
 		this.Luzes = false;
-		this.Seilaoq = true;
+		this.Desaceleracao_Continua = true;
 		this.Speed = 0.35;
 
 
@@ -223,37 +223,37 @@ class LightingScene extends CGFscene
 		//alinea 6
 
 		//example for nrDivs = 8 -> grid of 9x9 vertices
-this.altimetry= [[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3 ],
-[ 2.0 , 3.0 , 2.0, 4.0, 7.5, 6.4, 4.3, 1.3 ],
-[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
-[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
-[ 0.0 , 0.0 , 2.0, 4.0, 2.5, 2.4, 0.0, 0.0 ],
-[ 0.0 , 0.0 , 2.0, 4.0, 3.5, 2.4, 0.0, 0.0 ],
-[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
-[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
-[ 2.0 , 3.0 , 2.0, 1.0, 2.5, 2.4, 2.3, 1.3 ]
-];
+		this.altimetry= [[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3 ],
+		[ 2.0 , 3.0 , 2.0, 4.0, 7.5, 6.4, 4.3, 1.3 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 2.0, 4.0, 2.5, 2.4, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 2.0, 4.0, 3.5, 2.4, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+		[ 2.0 , 3.0 , 2.0, 1.0, 2.5, 2.4, 2.3, 1.3 ]
+		];
 
-this.terrain = new MyTerrain(this, 8, this.altimetry);
+		this.terrain = new MyTerrain(this, 8, this.altimetry);
 
-this.vehicleAppearances = [this.materialDefault, this.purpleCar, this.blueCar, this.armyCar,
-	 this.camuflageCar, this.carbonCar, this.redCar, this.yellowCar];
+		this.vehicleAppearances = [this.materialDefault, this.purpleCar, this.blueCar, this.armyCar,
+		this.camuflageCar, this.carbonCar, this.redCar, this.yellowCar];
 
-this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
- Camuflage: 4, Carbon: 5, Red: 6, Yellow: 7};
+		this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
+			Camuflage: 4, Carbon: 5, Red: 6, Yellow: 7};
 
- this.crane = new MyCrane(this);
+			this.crane = new MyCrane(this);
 
  // this.currVehicleAppearance = this.CarTexture;
 
-	};
+};
 
-	initCameras()
-	{
-		this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
-	};
+initCameras()
+{
+	this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
+};
 
-	update(currTime) {
+update(currTime) {
 		// var newCurrTime = currTime - oldCurrTime;
 		// this.oldCurrTime = currTime;
 
@@ -328,9 +328,9 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 		// this.lights[3].enable();
 
 		this.lights[4].setPosition(15, 2, 5, 1);
-        this.lights[4].setDiffuse(1.0,1.0,1.0,1.0);
-        this.lights[4].enable();
-        this.lights[4].update();
+		this.lights[4].setDiffuse(1.0,1.0,1.0,1.0);
+		this.lights[4].enable();
+		this.lights[4].update();
 
 
 
@@ -376,7 +376,7 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 			text += " S ";
 			this.keysPressed = true;
 
-			if (this.vehicle.speed >= -1 * this.vehicle.maxSpeed) {
+			if (this.vehicle.speed >= -this.vehicle.maxSpeed) {
 				this.vehicle.speed -= this.vehicle.acceleration;
 			}
 		}
@@ -387,9 +387,12 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 
 			this.vehicle.wheelRotationAngle	= 1;
 			this.vehicle.Apressed = true;
-			if (this.vehicle.acceleration > 0) {
+			if (this.vehicle.wheelRotationCounter > -Math.PI/4) {
+				this.vehicle.wheelRotationCounter -= 0.02;
+			}
+			if (this.vehicle.speed > 0) {
 				this.vehicle.angleAlpha += 0.01;
-			} else if (this.vehicle.acceleration < 0) {
+			} else if (this.vehicle.speed < 0) {
 				this.vehicle.angleAlpha -= 0.01;
 			}
 		}
@@ -401,10 +404,13 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 
 			this.vehicle.wheelRotationAngle = 1;
 			this.vehicle.Dpressed = true;
+			if (this.vehicle.wheelRotationCounter < Math.PI/4) {
+				this.vehicle.wheelRotationCounter += 0.02;
+			}
 
-			if (this.vehicle.acceleration > 0) {
+			if (this.vehicle.speed > 0) {
 				this.vehicle.angleAlpha -= 0.01;
-			} else if (this.vehicle.acceleration < 0) {
+			} else if (this.vehicle.speed < 0) {
 				this.vehicle.angleAlpha += 0.01;
 			}
 		}
@@ -416,14 +422,35 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 			this.vehicle.Apressed = false;
 			this.vehicle.Dpressed = false;
 
+			if (this.Desaceleracao_Continua == true) {
+				if (this.vehicle.speed > 0) {
+					this.vehicle.speed -= 0.01;
+				}
+				if (this.vehicle.speed < 0) {
+					this.vehicle.speed += 0.01;
+				}
 
-			if (this.vehicle.speed > 0) {
-				this.vehicle.speed -= 0.05;
+				if (this.vehicle.wheelRotationCounter < 0) {
+					this.vehicle.wheelRotationCounter += 0.02;
+				} 
+				if (this.vehicle.wheelRotationCounter > 0) {
+					this.vehicle.wheelRotationCounter -= 0.02;
+				}
 			}
-			if (this.vehicle.speed < 0) {
-				this.vehicle.speed += 0.05;
+
+			if (this.vehicle.speed > -0.011 && this.vehicle.speed < 0.011) {
+				this.vehicle.speed = 0;
 			}
+
+			if (this.vehicle.wheelRotationCounter > -0.021 && this.vehicle.wheelRotationCounter < 0.021) {
+				this.vehicle.wheelRotationCounter = 0;
+			}
+
 		}
+
+
+		
+
 
 		// if (this.keyAPressed || this.keySPressed) {
 		// 	if (this.keyAPressed) {
@@ -494,7 +521,7 @@ this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 			this.scale(15, 15, 0.2);
 			// this.floorAppearance.apply();
 			this.floor.display();
-		this.popMatrix(); */
+			this.popMatrix(); */
 
 		// Left Wall
 		// this.pushMatrix();

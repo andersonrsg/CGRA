@@ -25,6 +25,7 @@ class MyVehicle extends CGFobject {
 		this.anchor = 0;
 
 		this.wheelRotationAngle = 0;
+		this.wheelRotationCounter = 0;
 		this.Apressed = false;
 		this.Dpressed = false;
 
@@ -132,7 +133,7 @@ class MyVehicle extends CGFobject {
 		// this.indices.push(8, 9, 10);
 		// this.indices.push(8, 10, 4);
 		// this.normalsRightSide(3);
-	
+
 
 		// this.vertices.push(partDist+wheelDiameter			, ground		, width);					//11
 		// this.vertices.push(side - partDist - wheelDiameter	, ground		, width);					//12
@@ -177,7 +178,7 @@ class MyVehicle extends CGFobject {
 		// this.indices.push(25, 24, 20);
 		// this.indices.push(25, 20, 26);
 		// this.normalsLeftSide(3);
-	
+
 
 		// this.vertices.push(partDist+wheelDiameter			, ground		, 0);					//27
 		// this.vertices.push(side - partDist - wheelDiameter	, ground		, 0);					//28
@@ -440,27 +441,27 @@ class MyVehicle extends CGFobject {
 		this.scene.windowAppearance.apply();
 
 		this.scene.pushMatrix();
-		this.scene.translate(0.4+this.wheelDiameter/2,this.wheelDiameter/2,1.95);
+		this.scene.translate(0.4+this.wheelDiameter/2, this.wheelDiameter/2,1.95);
 		this.scene.scale(0.35,0.35,1);
 		this.backRightWheel.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
-		this.scene.translate(0.4+this.wheelDiameter/2,this.wheelDiameter/2,0.55);
+		this.scene.translate(0.4+this.wheelDiameter/2, this.wheelDiameter/2,0.55);
 		this.scene.rotate(Math.PI, 0, 1, 0);
 		this.scene.scale(0.35,0.35,1);
 		this.backLeftWheel.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
-		this.scene.translate(0.4+this.wheelDiameter/2 + 1 + 2*0.4 + 2*0.35,this.wheelDiameter/2,1.95);
+		this.scene.translate(0.4+this.wheelDiameter/2 + 1 + 2*0.4 + 2*0.35, this.wheelDiameter/2,1.95);
 
-		if (this.Apressed == true && this.Dpressed == false) {
-			this.scene.rotate(Math.PI/4, 0, 1, 0);	
-		}
-			if (this.Dpressed == true && this.Apressed == false) {
-				this.scene.rotate(-Math.PI/4, 0, 1, 0);
-			}
+		// if (this.Apressed == true && this.Dpressed == false) {
+			this.scene.rotate(this.wheelRotationCounter, 0, 1, 0);	
+		// }
+		// if (this.Dpressed == true && this.Apressed == false) {
+		// 	this.scene.rotate(-Math.PI/4, 0, 1, 0);
+		// }
 
 		this.scene.scale(0.35,0.35,1);
 		this.frontRightWheel.display();
@@ -470,14 +471,14 @@ class MyVehicle extends CGFobject {
 		this.scene.translate(0.4+this.wheelDiameter/2 + 1 + 2*0.4 + 2*0.35,this.wheelDiameter/2,0.55);
 		this.scene.rotate(Math.PI, 0, 1, 0);
 
-			if (this.Apressed == true && this.Dpressed == false) {
-				this.scene.rotate(Math.PI/4, 0, 1, 0);
+		if (this.Apressed == true && this.Dpressed == false) {
+			this.scene.rotate(Math.PI/4, 0, 1, 0);
 
-			}
+		}
 		if (this.Dpressed == true && this.Apressed == false) {
 			this.scene.rotate(-Math.PI/4, 0, 1, 0);
 		}
-	
+
 
 		this.scene.scale(0.35,0.35,1);
 		this.frontLeftWheel.display();
