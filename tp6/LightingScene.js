@@ -42,7 +42,7 @@ class LightingScene extends CGFscene
 		this.Eixos = false;
 		this.Luzes = false;
 		this.Desaceleracao_Continua = true;
-		this.Speed = 0.35;
+		this.Speed = 0.15;
 
 
 		// Car Textures
@@ -56,7 +56,7 @@ class LightingScene extends CGFscene
 		this.keysPressed = false;
 
 
-		// this.oldCurrTime = 0;
+		this.oldCurrTime = 0;
 		this.gl.clearColor(0.49, 0.81, 0.92, 1.0);
 		this.gl.clearDepth(100.0);
 		this.gl.enable(this.gl.DEPTH_TEST);
@@ -254,21 +254,12 @@ initCameras()
 };
 
 update(currTime) {
-		// var newCurrTime = currTime - oldCurrTime;
-		// this.oldCurrTime = currTime;
 
-		this.myClock.update(currTime);
-		this.vehicle.update(currTime);
+    	var newCurrTime = currTime - this.oldCurrTime;
+    	this.oldCurrTime = currTime;
 
-		// if (!this.keysPressed) {
-		// 	if (this.vehicle.acceleration > 0) {
-		// 		this.vehicle.acceleration -= 0.01;
-		// 	}
-		// 	if (this.vehicle.acceleration < 0) {
-		// 		this.vehicle.acceleration += 0.01;
-		// 	}
-		// }
-
+		this.myClock.update(newCurrTime);
+		this.vehicle.update(newCurrTime);
 
 		this.checkKeys();
 	};
@@ -387,8 +378,9 @@ update(currTime) {
 
 			this.vehicle.wheelRotationAngle	= 1;
 			this.vehicle.Apressed = true;
-			if (this.vehicle.wheelRotationCounter > -Math.PI/4) {
-				this.vehicle.wheelRotationCounter -= 0.02;
+
+			if (this.vehicle.wheelRotationCounter < Math.PI/4) {
+				this.vehicle.wheelRotationCounter += 0.02;
 			}
 			if (this.vehicle.speed > 0) {
 				this.vehicle.angleAlpha += 0.01;
@@ -404,8 +396,9 @@ update(currTime) {
 
 			this.vehicle.wheelRotationAngle = 1;
 			this.vehicle.Dpressed = true;
-			if (this.vehicle.wheelRotationCounter < Math.PI/4) {
-				this.vehicle.wheelRotationCounter += 0.02;
+			
+			if (this.vehicle.wheelRotationCounter > -Math.PI/4) {
+				this.vehicle.wheelRotationCounter -= 0.02;
 			}
 
 			if (this.vehicle.speed > 0) {
@@ -620,10 +613,10 @@ update(currTime) {
 
 		this.pushMatrix();
 
-		this.translate(2,0,-9.5);
+		// this.translate(2,0,-9.5);
 
-		this.rotate(this.vehicle.angleAlpha, 0, 1, 0);
-		this.translate(this.vehicle.anchorX, 0, this.vehicle.anchorZ);
+		// this.rotate(this.vehicle.angleAlpha, 0, 1, 0);
+		// this.translate(this.vehicle.posX, 0, this.vehicle.posZ);
 
 		//if luzes ligadas
 

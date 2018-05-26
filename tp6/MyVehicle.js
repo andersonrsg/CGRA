@@ -14,13 +14,19 @@ class MyVehicle extends CGFobject {
 		this.acceleration = 0.05;
 		this.speed = 0;
 		this.maxSpeed = 0.1;
-		this.position = 0;
+
+		this.posX = 0;
+		this.posZ = -9;
+
+		this.speedX = 0;
+		this.speedZ = 0;
 
 		this.angleAlpha = 0;
 		
+		this.time = 0;
 
-		this.anchorX = 0;
-		this.anchorZ = 0;
+		// this.anchorX = 0;
+		// this.anchorZ = 1;
 
 		this.anchor = 0;
 
@@ -75,16 +81,32 @@ class MyVehicle extends CGFobject {
 
 	update(currTime) {
 
+		console.log("curr time: "+ currTime)
+		var carTime = currTime / 100;
 
-		this.position += this.speed;
-		
-		this.anchorX = 0.5 * Math.cos(this.angleAlpha) * (this.position);// + this.anchorX);
-		this.anchorZ = 0.5 * Math.sin(this.angleAlpha) * (this.position);// + this.anchorZ);
+		// Speed Parameters
+		this.speedX = this.speed * Math.cos(-this.angleAlpha);// - Math.PI/2);
+		this.speedZ = this.speed * Math.sin(this.angleAlpha);// + Math.PI/2);
 
-		console.log("Angle alpha" + this.angleAlpha);
+    	//Position
+    	this.posX += this.speedX * carTime;
+    	this.posZ += this.speedZ * carTime;
 
-		console.log(this.anchorX);
-		console.log("Speed: " + this.speed)
+
+    	// this.position += this.speed;
+
+		// this.anchorX = 0.5 * Math.cos(this.angleAlpha) * (this.position);// + this.anchorX);
+		// this.anchorZ = 0.5 * Math.sin(this.angleAlpha) * (this.position);// + this.anchorZ);
+
+		console.log("X: "+ this.posX);
+		console.log("Z: "+ this.posZ);
+		console.log("Speedx: "+ this.speedX);
+		console.log("Speedz: "+ this.speedZ);
+
+		console.log("Angle alpha: " + this.angleAlpha);
+
+		// console.log(this.anchorX);
+		console.log("Speed: " + this.speed);
 
 	};
 
@@ -237,9 +259,19 @@ class MyVehicle extends CGFobject {
 
 		super.display();
 
-		this.scene.translate(-4, 0, -1);
+		// this.scene.rotate(this.angleAlpha, 0, 1, 0);
+		// this.scene.pushMatrix();
+		this.scene.translate(-3.5, 0, -1);
+		// this.scene.popMatrix();
 		
+		this.scene.pushMatrix();
+		this.scene.translate(this.posX, 0, this.posZ);
+		this.scene.rotate(-this.angleAlpha, 0, 1, 0);
 
+		// this.scene.pushMatrix();
+		// this.scene.translate(this.posX, 0, this.posZ);
+		// this.scene.rotate(this.angleAlpha, 0, 1, 0)
+		// this.scene.popMatrix();
 
 		// this.scene.pushMatrix();
 		// this.windsheet.display();
@@ -467,18 +499,20 @@ class MyVehicle extends CGFobject {
 		this.frontRightWheel.display();
 		this.scene.popMatrix();
 
+
+
 		this.scene.pushMatrix();
 		this.scene.translate(0.4+this.wheelDiameter/2 + 1 + 2*0.4 + 2*0.35,this.wheelDiameter/2,0.55);
 		this.scene.rotate(Math.PI, 0, 1, 0);
 
-		if (this.Apressed == true && this.Dpressed == false) {
-			this.scene.rotate(Math.PI/4, 0, 1, 0);
+		// if (this.Apressed == true && this.Dpressed == false) {
+		// 	this.scene.rotate(Math.PI/4, 0, 1, 0);
 
-		}
-		if (this.Dpressed == true && this.Apressed == false) {
-			this.scene.rotate(-Math.PI/4, 0, 1, 0);
-		}
-
+		// }
+		// if (this.Dpressed == true && this.Apressed == false) {
+		// 	this.scene.rotate(-Math.PI/4, 0, 1, 0);
+		// }
+		this.scene.rotate(this.wheelRotationCounter, 0, 1, 0);	
 
 		this.scene.scale(0.35,0.35,1);
 		this.frontLeftWheel.display();
