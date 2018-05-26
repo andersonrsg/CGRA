@@ -255,18 +255,18 @@ initCameras()
 
 update(currTime) {
 
-    	var newCurrTime = currTime - this.oldCurrTime;
-    	this.oldCurrTime = currTime;
+	var newCurrTime = currTime - this.oldCurrTime;
+	this.oldCurrTime = currTime;
 
-		this.myClock.update(newCurrTime);
-		this.vehicle.update(newCurrTime);
+	this.myClock.update(newCurrTime);
+	this.vehicle.update(newCurrTime);
 
-		this.checkKeys();
-	};
+	this.checkKeys();
+};
 
-	initLights()
-	{
-		this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
+initLights()
+{
+	this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
 		// this.setGlobalAmbientLight(0,0,0, 1.0);
 
 		// Positions for four lights
@@ -383,9 +383,9 @@ update(currTime) {
 				this.vehicle.wheelRotationCounter += 0.02;
 			}
 			if (this.vehicle.speed > 0) {
-				this.vehicle.angleAlpha += 0.01;
-			} else if (this.vehicle.speed < 0) {
 				this.vehicle.angleAlpha -= 0.01;
+			} else if (this.vehicle.speed < 0) {
+				this.vehicle.angleAlpha += 0.01;
 			}
 		}
 
@@ -402,10 +402,11 @@ update(currTime) {
 			}
 
 			if (this.vehicle.speed > 0) {
-				this.vehicle.angleAlpha -= 0.01;
-			} else if (this.vehicle.speed < 0) {
 				this.vehicle.angleAlpha += 0.01;
+			} else if (this.vehicle.speed < 0) {
+				this.vehicle.angleAlpha -= 0.01;
 			}
+
 		}
 
 		if (this.keysPressed) {
@@ -423,12 +424,12 @@ update(currTime) {
 					this.vehicle.speed += 0.01;
 				}
 
-				if (this.vehicle.wheelRotationCounter < 0) {
-					this.vehicle.wheelRotationCounter += 0.02;
-				} 
-				if (this.vehicle.wheelRotationCounter > 0) {
-					this.vehicle.wheelRotationCounter -= 0.02;
-				}
+				// if (this.vehicle.wheelRotationCounter < 0) {
+				// 	this.vehicle.wheelRotationCounter += 0.02;
+				// } 
+				// if (this.vehicle.wheelRotationCounter > 0) {
+				// 	this.vehicle.wheelRotationCounter -= 0.02;
+				// }
 			}
 
 			if (this.vehicle.speed > -0.011 && this.vehicle.speed < 0.011) {
@@ -441,7 +442,14 @@ update(currTime) {
 
 		}
 
-
+		if (!this.gui.isKeyPressed("KeyD") && !this.gui.isKeyPressed("KeyA")) {
+			if (this.vehicle.wheelRotationCounter < 0) {
+				this.vehicle.wheelRotationCounter += 0.02;
+			} 
+			if (this.vehicle.wheelRotationCounter > 0) {
+				this.vehicle.wheelRotationCounter -= 0.02;
+			}
+		}
 		
 
 
