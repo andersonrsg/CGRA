@@ -209,16 +209,16 @@ class LightingScene extends CGFscene
 		this.dirtAppearance.setDiffuse(1,1,1,1);
 		this.dirtAppearance.loadTexture(dirtTexture);
 
-		// this.frontLeftLght = new CGFlight(this, "fl");
-		// this.frontLeftLght.setPosition(0,1,0,1);
-
-		// this.frontLeftLght.setAmbient(0.5, 0, 0, 1);
-		// this.frontLeftLght.setDiffuse(1.0, 0, 0, 1.0);
-		// this.frontLeftLght.setSpecular(1,0,0,1);
 
 
 
 		this.setUpdatePeriod(1);
+
+		// Postes
+		this.poste1 = new MyPoste(this);
+
+
+
 
 		//alinea 6
 
@@ -270,62 +270,80 @@ initLights()
 		// this.setGlobalAmbientLight(0,0,0, 1.0);
 
 		// Positions for four lights
-		this.lights[0].setPosition(4, 6, 1, 1);
+		// this.lights[0].setPosition(4, 6, 1, 1);
+		// // this.lights[0].setVisible(true); // show marker on light position (different from enabled)
+
+		this.lights[0].setPosition(10.5, 6.0, 1.0, 1.0);
+		this.lights[0].setPosition(-4, 6, 1, 1);
 		this.lights[0].setVisible(true); // show marker on light position (different from enabled)
 
-		// this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
-		this.lights[1].setPosition(-4, 6, 1, 1);
-		this.lights[1].setVisible(true); // show marker on light position (different from enabled)
-
-		this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
-		// this.lights[2].setVisible(true); // show marker on light position (different from enabled)
-
-		this.lights[3].setPosition(4, 6.0, 5.0, 1.0);
-		// this.lights[3].setVisible(true); // show marker on light position (different from enabled)
-
-		// this.lights[0].setAmbient(0, 0, 0, 1);
-		this.lights[0].setAmbient(0.5, 0.5, 0.5, 1);
+		this.lights[0].setAmbient(0, 0, 0, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[0].setSpecular(1,1,0,1);
 		this.lights[0].enable();
 
-		this.lights[1].setAmbient(0, 0, 0, 1);
-		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[1].enable();
 
+
+		this.lights[2].setPosition(10.5, 6.0, 1.0, 1.0);
+		this.lights[2].setPosition(0, 4, -15, 1);
+		this.lights[2].setVisible(true); // show marker on light position (different from enabled)
 		this.lights[2].setAmbient(0, 0, 0, 1);
 		this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[2].setSpecular(1,1,1,1);
+		this.lights[2].enable();
 
-		//kc
-		this.lights[2].setConstantAttenuation(0)
-		//kl
-		// this.lights[2].setLinearAttenuation(0.2)
-		this.lights[2].setLinearAttenuation(1)
-		//kq
-		this.lights[2].setQuadraticAttenuation(0)
-		// this.lights[2].enable();
+		// this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
+		// // this.lights[2].setVisible(true); // show marker on light position (different from enabled)
 
-		this.lights[3].setAmbient(0, 0, 0, 1);
-		this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[3].setSpecular(1,1,0,1);
-		//kc
-		this.lights[3].setConstantAttenuation(0)
-		//kl
-		// this.lights[2].setLinearAttenuation(0.2)
-		this.lights[3].setLinearAttenuation(0)
-		//kq
-		this.lights[3].setQuadraticAttenuation(1)
-		// this.lights[3].enable();
+		// this.lights[3].setPosition(4, 6.0, 5.0, 1.0);
+		// // this.lights[3].setVisible(true); // show marker on light position (different from enabled)
 
-		this.lights[4].setPosition(15, 2, 5, 1);
-		this.lights[4].setDiffuse(1.0,1.0,1.0,1.0);
-		this.lights[4].enable();
-		this.lights[4].update();
+		// // this.lights[0].setAmbient(0, 0, 0, 1);
+		// this.lights[0].setAmbient(0.5, 0.5, 0.5, 1);
+		// this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		// this.lights[0].setSpecular(1,1,0,1);
+		// this.lights[0].enable();
+
+		
+
+		// this.lights[2].setAmbient(0, 0, 0, 1);
+		// this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		// this.lights[2].setSpecular(1,1,1,1);
+
+		// //kc
+		// this.lights[2].setConstantAttenuation(0)
+		// //kl
+		// // this.lights[2].setLinearAttenuation(0.2)
+		// this.lights[2].setLinearAttenuation(1)
+		// //kq
+		// this.lights[2].setQuadraticAttenuation(0)
+		// // this.lights[2].enable();
+
+		// this.lights[3].setAmbient(0, 0, 0, 1);
+		// this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		// this.lights[3].setSpecular(1,1,0,1);
+		// //kc
+		// this.lights[3].setConstantAttenuation(0)
+		// //kl
+		// // this.lights[2].setLinearAttenuation(0.2)
+		// this.lights[3].setLinearAttenuation(0)
+		// //kq
+		// this.lights[3].setQuadraticAttenuation(1)
+		// // this.lights[3].enable();
+
+		// this.lights[4].setPosition(15, 2, 5, 1);
+		// this.lights[4].setDiffuse(1.0,1.0,1.0,1.0);
+		// this.lights[4].enable();
+		// this.lights[4].update();
 
 
 
 
+		// this.lights[0].setPosition(4, 6, 1, 1);
+		// this.lights[0].setAmbient(0.5, 0.5, 0.5, 1);
+		// this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		// this.lights[0].setSpecular(1,1,0,1);
+		// this.lights[0].setVisible(true);
+		// this.lights[0].enable();
+		// this.lights[0].update();
 	};
 
 	updateLights()
@@ -632,9 +650,18 @@ initLights()
 
 		// this.vehicle.applyTexture(vehicleAppearanceList(this.selectedCarTexture));
 
-
+		// this.lights[1].setPosition(this.vehicle.posX, 1, this.vehicle.posZ, 1);
 		this.vehicle.display();
 		this.popMatrix();
+
+
+		// this.pushMatrix();
+		// // this.scene.rotate(Math.PI/2, 0,1,0);
+		// this.lights[1].setPosition(this.vehicle.posX, 1, this.vehicle.posZ, 1);
+		// this.popMatrix();
+
+
+
 
 		//TERRAIN
 		this.pushMatrix();
@@ -645,6 +672,14 @@ initLights()
 		this.pushMatrix();
 		this.crane.display();
 		this.popMatrix();
+
+		//POSTES DE LUZ
+		this.pushMatrix();
+		this.translate(0, 2, -15);
+		this.rotate(-Math.PI/2, 0, 1, 0);
+		this.poste1.display();
+		this.popMatrix();
+
 
 	};
 };
