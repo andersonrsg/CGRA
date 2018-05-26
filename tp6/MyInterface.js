@@ -39,8 +39,8 @@ class MyInterface extends CGFinterface {
 		// e.g. this.option1=true; this.option2=false;
 
 		group.add(this.scene, 'Eixos');
-		group.add(this.scene, 'Luzes');
 		group.add(this.scene, 'Desaceleracao_Continua');
+		group.add(this.scene, 'Luzes_Visiveis');
 
 		// add a slider
 		// must be a numeric variable of the scene, initialized in scene.init e.g.
@@ -58,6 +58,12 @@ class MyInterface extends CGFinterface {
     	groupCarTexture.add(this.scene, 'BackTexture', this.scene.vehicleAppearanceList );
     	groupCarTexture.add(this.scene, 'CapoTexture', this.scene.vehicleAppearanceList );
     	groupCarTexture.add(this.scene, 'MotorTexture', this.scene.vehicleAppearanceList );
+
+
+		var groupLights = this.gui.addFolder("Luzes");
+		groupLights.add(this.scene, 'Poste_1');
+
+
 
 		this.initKeys();
 
