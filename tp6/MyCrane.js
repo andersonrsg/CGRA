@@ -7,6 +7,7 @@ class MyCrane extends CGFobject {
 		 this.cilinderPart = new MyCilinder(scene,100,1,5);
 		 this.armPart = new MyPrism(scene,4,1);
 		 this.circlePart = new MyCircle(scene,100,1,0);
+		 this.quadPart = new MyQuad(scene,0,1,0,1);
 
 		this.initBuffers();
 	};
@@ -85,6 +86,33 @@ class MyCrane extends CGFobject {
 		this.scene.scale(0.4,0.4,1)
 		this.circlePart.display()
 		this.scene.popMatrix()
+
+		//CRANE SECOND ARM
+		this.scene.pushMatrix()
+		//this.scene.translate(0,0.2,0)
+		//this.scene.rotate(-Math.PI/4, 1, 0, 0)
+		this.scene.translate(0,7/Math.sqrt(2)+0.2,7/Math.sqrt(2))
+		this.scene.rotate(Math.PI/4, 1, 0, 0)
+		this.scene.rotate(Math.PI/4, 0, 0, 1)
+		this.scene.scale(0.3,0.3,3.5)
+		this.armPart.display()
+		this.scene.popMatrix()
+
+		//CRANE SECOND ARM QUAD
+
+		this.scene.pushMatrix()
+		//this.scene.translate(0,0.2,0)
+		//this.scene.rotate(-Math.PI/4, 1, 0, 0)
+		//this.scene.rotate(Math.PI/4, 0, 0, 1)
+		this.scene.translate(0,7/Math.sqrt(2)+0.2,7/Math.sqrt(2))
+		this.scene.rotate(Math.PI/4, 1, 0, 0)
+		this.scene.translate(0,0,3.5)
+		this.scene.scale(0.3,0.3,1)
+		this.scene.scale(Math.sqrt(2),Math.sqrt(2),1)
+		this.quadPart.display()
+		this.scene.popMatrix()
+
+
 
 
 
