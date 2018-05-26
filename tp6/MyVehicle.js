@@ -82,16 +82,16 @@ class MyVehicle extends CGFobject {
 		
 
 
-		this.frontLeftLght = new CGFlight(this.scene, "fl");
-		// this.frontLeftLght.setPosition(4, 6, 1, 1);
+		// this.frontLeftLght = new CGFlight(this.scene, "fl");
+		// // this.frontLeftLght.setPosition(4, 6, 1, 1);
 
-		this.frontLeftLght.setAmbient(0.5, 0.5, 0.5, 1);
-		this.frontLeftLght.setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.frontLeftLght.setSpecular(1,1,0,1);
-		this.frontLeftLght.setVisible(true);
-		this.frontLeftLght.enable();
-		this.frontLeftLght.update();
-		this.scene.lights[1] = this.frontLeftLght;
+		// this.frontLeftLght.setAmbient(0.5, 0.5, 0.5, 1);
+		// this.frontLeftLght.setDiffuse(1.0, 1.0, 1.0, 1.0);
+		// this.frontLeftLght.setSpecular(1,1,0,1);
+		// this.frontLeftLght.setVisible(true);
+		// this.frontLeftLght.enable();
+		// this.frontLeftLght.update();
+		// this.scene.lights[1] = this.frontLeftLght;
 
 
 		this.initBuffers();
@@ -537,7 +537,7 @@ class MyVehicle extends CGFobject {
 
 
 		
-		this.frontLeftLght.setPosition(this.posX+2.1, 1/2+this.ground, this.posZ, 1);
+		// this.frontLeftLght.setPosition(this.posX+2.1, 1/2+this.ground, this.posZ, 1);
 		
 	};
 };

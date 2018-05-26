@@ -40,10 +40,13 @@ class LightingScene extends CGFscene
 
 		// Initial Config
 		this.Eixos = false;
-		this.Luzes = false;
 		this.Desaceleracao_Continua = true;
+		this.Luzes_Visiveis = true;
+
 		this.Speed = 0.15;
 
+		// Luzes
+		this.Poste_1 = true;
 
 		// Car Textures
 		this.RoofTexture = 0;
@@ -64,23 +67,6 @@ class LightingScene extends CGFscene
 		this.gl.depthFunc(this.gl.LEQUAL);
 
 		this.axis = new CGFaxis(this);
-
-		// Clock
-
-		this.myClock = new MyClock(this, 12, 3);
-		// this.myCircle = new MyCircle(this, 12, 1);
-		// Scene elements
-		this.table = new MyTable(this);
-		// this.leftWindow = new MyQuad(this, 0, 1, 0, 1);
-		this.leftWall = new MyQuad(this, -0.2, 1.2, -0.2, 1.2);
-		this.rightWall = new Plane(this);
-		this.floor = new MyQuad(this, 0, 10, 0, 12);
-
-		this.myPrism = new MyPrism(this, 6, 20);
-		this.myCilinder = new MyCilinder(this, 5, 20, 1)
-
-		this.boardA = new Plane(this, BOARD_A_DIVISIONS, -0.1, 1.2, 0.1, 0.8);
-		this.boardB = new Plane(this, BOARD_B_DIVISIONS, 0, 1, 0, 1);
 
 
 		this.myLamp = new MyLamp(this, 6, 20);
@@ -258,7 +244,6 @@ update(currTime) {
 	var newCurrTime = currTime - this.oldCurrTime;
 	this.oldCurrTime = currTime;
 
-	this.myClock.update(newCurrTime);
 	this.vehicle.update(newCurrTime);
 
 	this.checkKeys();
@@ -273,22 +258,24 @@ initLights()
 		// this.lights[0].setPosition(4, 6, 1, 1);
 		// // this.lights[0].setVisible(true); // show marker on light position (different from enabled)
 
-		this.lights[0].setPosition(10.5, 6.0, 1.0, 1.0);
+		// this.lights[0].setPosition(10.5, 6.0, 1.0, 1.0);
 		this.lights[0].setPosition(-4, 6, 1, 1);
-		this.lights[0].setVisible(true); // show marker on light position (different from enabled)
+		
 
 		this.lights[0].setAmbient(0, 0, 0, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
 		this.lights[0].enable();
 
 
+		this.lights[1].setPosition(0, 6.3, -14.2, 1);
+		this.lights[1].setVisible(true); 
+		this.lights[1].setAmbient(0, 0, 0, 1);
+		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
 
-		this.lights[2].setPosition(10.5, 6.0, 1.0, 1.0);
-		this.lights[2].setPosition(0, 4, -15, 1);
-		this.lights[2].setVisible(true); // show marker on light position (different from enabled)
-		this.lights[2].setAmbient(0, 0, 0, 1);
-		this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[2].enable();
+
+		
+
+
 
 		// this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
 		// // this.lights[2].setVisible(true); // show marker on light position (different from enabled)
@@ -530,110 +517,10 @@ initLights()
 
 		// ---- BEGIN Scene drawing section
 
-		// Floor
-	/*	this.floorAppearance.apply();
-		this.pushMatrix();
-			this.translate(7.5, 0, 7.5);
-			this.rotate(-90 * degToRad, 1, 0, 0);
-			this.scale(15, 15, 0.2);
-			// this.floorAppearance.apply();
-			this.floor.display();
-			this.popMatrix(); */
-
-		// Left Wall
-		// this.pushMatrix();
-		// 	this.translate(0, 4, 7.5);
-		// 	this.rotate(90 * degToRad, 0, 1, 0);
-		// 	this.scale(15, 8, 0.2);
-		// 	this.windowAppearance.apply();
-		// 	this.leftWindow.display();
-		// this.popMatrix();
-
-		// this.pushMatrix();
-		// this.translate(7.3, 7.6, 0);
-		// this.myClock.display();
-		// this.popMatrix();
-		// Plane Wall
-		// this.materialDefault.apply();
-		// this.windowAppearance.apply();
-		// this.pushMatrix();
-		// 	this.translate(0, 4, 7.5);
-		// 	this.rotate(90 * degToRad, 0, 1, 0);
-		// 	this.rotate(180 * degToRad, 0, 0, 1);
-		// 	this.scale(15, 8, 0.2);
-		// 	this.leftWall.display();
-		// this.popMatrix();
-
-		// Plane Wall
-
-		// this.materialDefault.apply();
-		// this.pushMatrix();
-		// 	this.translate(7.5, 4, 0);
-		// 	this.scale(15, 8, 0.2);
-		// 	this.rightWall.display();
-		// this.popMatrix();
-
-		// First Table
-		// this.pushMatrix();
-		// 	this.translate(5, 0, 8);
-		// 	this.table.display();
-		// 	// this.tableAppearance.apply();
-		// this.popMatrix();
-
-		// // Second Table
-		// this.pushMatrix();
-		// 	this.translate(12, 0, 8);
-		// 	this.table.display();
-		// this.popMatrix();
-
-		// Board A
-		// this.pushMatrix();
-		// this.slidesAppearance.apply();
-		// 	this.translate(4, 4.5, 0.2);
-		// 	this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-		// 	this.boardA.display();
-		// this.popMatrix();
-
-		// // Board B
-		// this.pushMatrix();
-		// this.boardAppearance.apply();
-		// 	this.translate(10.5, 4.5, 0.2);
-		// 	this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-		// 	this.boardB.display();
-		// this.popMatrix();
+		
 
 		// ---- END Scene drawing section
 
-		this.pushMatrix();
-
-		// this.translate(3,1,-2);
-		// this.rotate(-Math.PI/2, 1, 0, 0);
-		// this.scale(1,1,3);
-		// this.translate(3,-3,0);
-
-		// this.translate(3,1,1);
-		// this.myCilinder.display();
-		this.popMatrix();
-
-
-		this.pushMatrix();
-
-		// this.translate(3,1,-2);
-		// this.rotate(-Math.PI/2, 1, 0, 0);
-		// this.scale(1,1,3);
-		// this.translate(3,-3,0);
-
-		// this.translate(3,1,1);
-		// this.myPrism.display();
-		this.popMatrix();
-
-
-		// this.pushMatrix();
-		// this.myLamp.display();
-		// this.popMatrix();
-
-
-		// CAR
 
 		this.pushMatrix();
 
@@ -661,6 +548,31 @@ initLights()
 		// this.popMatrix();
 
 
+		// Luzes
+		if (this.Poste_1 == true) {
+			this.lights[1].enable();
+		} 
+		if (this.Poste_1 == false) {
+			this.lights[1].disable();
+		}
+
+		// if (this.Poste_2 == true) {
+		// 	this.lights[2].enable();
+		// }
+		// if (this.Poste_3 == true) {
+		// 	this.lights[3].enable();
+		// }
+		// if (this.Poste_4 == true) {
+		// 	this.lights[4].enable();
+		// }
+
+		if (this.Luzes_Visiveis == true) {
+			for (var i = 0; i < 2 ; i++) 
+				this.lights[i].setVisible(true);
+		} else {
+			for (var i = 0; i < 2 ; i++) 
+				this.lights[i].setVisible(false);
+		}
 
 
 		//TERRAIN
