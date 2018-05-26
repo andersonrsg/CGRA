@@ -414,7 +414,7 @@ initLights()
 
 			// this.vehicle.wheelRotationAngle = 1;
 			// this.vehicle.Dpressed = true;
-			
+
 			if (this.vehicle.wheelRotationCounter > -Math.PI/4) {
 				this.vehicle.wheelRotationCounter -= 0.02;
 			}
@@ -442,7 +442,7 @@ initLights()
 
 				// if (this.vehicle.wheelRotationCounter < 0) {
 				// 	this.vehicle.wheelRotationCounter += 0.02;
-				// } 
+				// }
 				// if (this.vehicle.wheelRotationCounter > 0) {
 				// 	this.vehicle.wheelRotationCounter -= 0.02;
 				// }
@@ -461,12 +461,12 @@ initLights()
 		if (!this.gui.isKeyPressed("KeyD") && !this.gui.isKeyPressed("KeyA")) {
 			if (this.vehicle.wheelRotationCounter < 0) {
 				this.vehicle.wheelRotationCounter += 0.02;
-			} 
+			}
 			if (this.vehicle.wheelRotationCounter > 0) {
 				this.vehicle.wheelRotationCounter -= 0.02;
 			}
 		}
-		
+
 
 
 		// if (this.keyAPressed || this.keySPressed) {
