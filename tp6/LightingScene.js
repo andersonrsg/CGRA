@@ -376,8 +376,8 @@ initLights()
 			text += " A ";
 			this.keysPressed = true;
 
-			this.vehicle.wheelRotationAngle	= 1;
-			this.vehicle.Apressed = true;
+			// this.vehicle.wheelRotationAngle	= 1;
+			// this.vehicle.Apressed = true;
 
 			if (this.vehicle.wheelRotationCounter < Math.PI/4) {
 				this.vehicle.wheelRotationCounter += 0.02;
@@ -394,8 +394,8 @@ initLights()
 			text += " D ";
 			this.keysPressed = true;
 
-			this.vehicle.wheelRotationAngle = 1;
-			this.vehicle.Dpressed = true;
+			// this.vehicle.wheelRotationAngle = 1;
+			// this.vehicle.Dpressed = true;
 			
 			if (this.vehicle.wheelRotationCounter > -Math.PI/4) {
 				this.vehicle.wheelRotationCounter -= 0.02;
@@ -413,8 +413,6 @@ initLights()
 			console.log(text);
 		} else {
 			this.vehicle.wheelRotationAngle	= 0;
-			this.vehicle.Apressed = false;
-			this.vehicle.Dpressed = false;
 
 			if (this.Desaceleracao_Continua == true) {
 				if (this.vehicle.speed > 0) {

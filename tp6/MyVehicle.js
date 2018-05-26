@@ -28,12 +28,12 @@ class MyVehicle extends CGFobject {
 		// this.anchorX = 0;
 		// this.anchorZ = 1;
 
-		this.anchor = 0;
+		// this.anchor = 0;
 
-		this.wheelRotationAngle = 0;
+		// this.wheelRotationAngle = 0;
 		this.wheelRotationCounter = 0;
-		this.Apressed = false;
-		this.Dpressed = false;
+		// this.Apressed = false;
+		// this.Dpressed = false;
 
 		// this.roofTexture;
 
@@ -71,8 +71,14 @@ class MyVehicle extends CGFobject {
 		// this.frontLeftLght.setDiffuse(1.0, 1.0, 1.0, 1.0);
 		// this.frontLeftLght.setSpecular(-1,-1,-1,1);	
 		
+
+		/// NAO MEXER em baixo \/ para não dar conflito xD
+
 		this.leftLight = new MyLamp(scene, 20, 20);
 		this.leftRight = new MyLamp(scene, 20, 20);
+
+		this.leftLightPos = [0,0,0];
+		this.rightLightPos = [0,0,0];
 		
 
 
@@ -98,15 +104,15 @@ class MyVehicle extends CGFobject {
 		// this.anchorX = 0.5 * Math.cos(this.angleAlpha) * (this.position);// + this.anchorX);
 		// this.anchorZ = 0.5 * Math.sin(this.angleAlpha) * (this.position);// + this.anchorZ);
 
-		console.log("X: "+ this.posX);
-		console.log("Z: "+ this.posZ);
-		console.log("Speedx: "+ this.speedX);
-		console.log("Speedz: "+ this.speedZ);
+		// console.log("X: "+ this.posX);
+		// console.log("Z: "+ this.posZ);
+		// console.log("Speedx: "+ this.speedX);
+		// console.log("Speedz: "+ this.speedZ);
 
-		console.log("Angle alpha: " + this.angleAlpha);
+		// console.log("Angle alpha: " + this.angleAlpha);
 
 		// console.log(this.anchorX);
-		console.log("Speed: " + this.speed);
+		// console.log("Speed: " + this.speed);
 
 	};
 
@@ -261,7 +267,7 @@ class MyVehicle extends CGFobject {
 
 		// this.scene.rotate(this.angleAlpha, 0, 1, 0);
 		// this.scene.pushMatrix();
-		this.scene.translate(-4.5, 0, -1);
+		this.scene.translate(-2, 0, -1.25);
 		// this.scene.popMatrix();
 		
 		// this.scene.pushMatrix();
