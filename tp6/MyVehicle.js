@@ -15,14 +15,14 @@ class MyVehicle extends CGFobject {
 		this.speed = 0;
 		this.maxSpeed = 0.1;
 
-		this.posX = 0;
+		this.posX = 7;
 		this.posY = 0;
-		this.posZ = -9;
+		this.posZ = -7;
 
 		this.speedX = 0;
 		this.speedZ = 0;
 
-		this.angleAlpha = 0;
+		this.angleAlpha = Math.PI/2;
 		
 		this.time = 0;
 
@@ -73,7 +73,6 @@ class MyVehicle extends CGFobject {
 		// this.frontLeftLght.setSpecular(-1,-1,-1,1);	
 		
 
-		/// NAO MEXER em baixo \/ para não dar conflito xD
 
 		this.leftLight = new MyLamp(scene, 20, 20);
 		this.leftRight = new MyLamp(scene, 20, 20);
@@ -107,24 +106,30 @@ class MyVehicle extends CGFobject {
 		this.speedX = this.speed * Math.cos(-this.angleAlpha);
 		this.speedZ = this.speed * Math.sin(this.angleAlpha);
 
-    	//Position
+    	var oldX = this.posX;
+    	var oldZ = this.posZ;
 
-    	var nextPositionX = this.posX += this.speedX * carTime;
-    	var nextPositionZ = this.posZ += this.speedZ * carTime;
+		this.posX += this.speedX * carTime;
+		this.posZ += this.speedZ * carTime;
+
+    	var nextPositionX = this.posX/4;
+    	var nextPositionZ = this.posZ/4;
 
     	var nextXRounded = 0;
     	var nextZRounded = 0;
 
     	if (Math.abs(nextPositionX - Math.floor(nextPositionX)) > 0.49) {
-    		nextXRounded = Math.abs(Math.ceil(nextPositionX/2));
+    		nextXRounded = Math.ceil(nextPositionX);
     	} else {
- 			nextXRounded = Math.abs(Math.floor(nextPositionX/2));
+ 			nextXRounded = Math.floor(nextPositionX);
     	}
     	if (Math.abs(nextPositionZ - Math.floor(nextPositionZ)) > 0.49) {
-    		nextZRounded = Math.abs(Math.ceil(nextPositionZ/2));
+    		nextZRounded = Math.ceil(nextPositionZ);
     	} else {
- 			nextZRounded = Math.abs(Math.floor(nextPositionZ/2));
+ 			nextZRounded = Math.floor(nextPositionZ);
     	}
+    	nextXRounded += 5;
+		nextZRounded += 5;
 
     	console.log("nextX: "+nextPositionX);
     	console.log("nextZ: " +nextPositionX);
@@ -132,13 +137,15 @@ class MyVehicle extends CGFobject {
     	console.log("rounded: "+nextXRounded);
     	console.log("rounded: "+ nextZRounded);
 
-    	if (this.scene.altimetry[nextXRounded][nextZRounded] == 0.0) {
-    		this.posX = nextPositionX;
-    		this.posZ = nextPositionZ;
+    	// console.log("altimetry:" + this.scene.altimetry[][nextZRounded]);
+
+    	if (this.scene.altimetry[nextZRounded][nextXRounded] < 0.5) {
+    		this.posX = nextPositionX*4;
+    		this.posZ = nextPositionZ*4;
    	 	} else {
    	 		console.log("error");
-   	 		this.posX = this.posX;
-   	 		this.posZ = this.posZ;
+   	 		this.posX = oldX;
+   	 		this.posZ = oldZ;
    	 		this.speed = 0;
    	 	}
 
@@ -182,7 +189,7 @@ class MyVehicle extends CGFobject {
 		this.scene.translate(-2, 0, -1.25);
 		// this.scene.popMatrix();
 		
-		// this.scene.pushMatrix();
+		this.scene.pushMatrix();
 		this.scene.translate(this.posX, this.posY, this.posZ);
 		this.scene.rotate(-this.angleAlpha, 0, 1, 0);
 
