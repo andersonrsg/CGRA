@@ -11,15 +11,15 @@ class MyCrane extends CGFobject {
 		this.quadPart = new MyQuad(scene,0,1,0,1);
 
 		 //MAGNET COORDINATES
-		 this.imanPosXMin = -0.8;
-		 this.imanPosXMax = 0.8;
-		 this.imanPosZMin = 10/Math.sqrt(2) + 3.5/Math.sqrt(2)-0.05-0.8;
-		 this.imanPosZMax = 10/Math.sqrt(2) + 3.5/Math.sqrt(2)-0.05+0.8;
+		 this.imanPosXMin = -1;
+		 this.imanPosXMax = 1;
+		 this.imanPosZMin = 10/Math.sqrt(2) + 3.5/Math.sqrt(2)-0.05-1;
+		 this.imanPosZMax = 10/Math.sqrt(2) + 3.5/Math.sqrt(2)-0.05+1;
 
 		 //RODAR
 		 this.reset = 0;
 		 this.rotationCounterAngle = 0;
-
+		 this.counter = 0;
 
 		 var CRANE_STATE = { "WAITING":1, "GOINGUP":2, "MOVING":3, "GOINGDOWN":4, "UPDATINGVEHICLE":5 , "MOVINGBACK":6};
 		 Object.freeze(CRANE_STATE);
@@ -30,9 +30,12 @@ class MyCrane extends CGFobject {
 		};
 
 		update(currTime) {
-
+			console.log("Z");
 			console.log(this.scene.vehicle.posZ);
 			console.log(this.imanPosZMax);
+			console.log("X");
+			console.log(this.scene.vehicle.posX);
+			console.log(this.imanPosXMax);
 
 			if (this.currentState == 1) {
 				if (this.scene.vehicle.posX-3 <= this.imanPosXMax && this.scene.vehicle.posX-3 >= this.imanPosXMin && this.scene.vehicle.posZ <= this.imanPosZMax && this.scene.vehicle.posZ >= this.imanPosZMin) 
@@ -71,14 +74,12 @@ class MyCrane extends CGFobject {
 				}
 			}
 
-			// var counter;
 			if (this.currentState == 5) {
-
-				// if (counter < 500) {
-				// 	counter++;
-				// } else {
+				if (this.counter < 500) {
+					this.counter++;
+				} else {
 					this.currentState = 6;
-				// }
+				}
 			}
 
 			if (this.currentState == 6) {
@@ -232,9 +233,11 @@ class MyCrane extends CGFobject {
 
 
 		if (this.currentState == 2 || this.currentState == 3 || this.currentState == 4) {
-			this.scene.pushMatrix();
-			this.scene.vehicle.display();
-			this.scene.popMatrix();
+			if (this.counter < 250) {
+				this.scene.pushMatrix();
+				this.scene.vehicle.display();
+				this.scene.popMatrix();
+			}
 		}
 
 		this.scene.popMatrix();

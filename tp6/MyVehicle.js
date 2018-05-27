@@ -36,7 +36,8 @@ class MyVehicle extends CGFobject {
 		// this.anchor = 0;
 
 		this.wheelRotationCounter = 0;
-		this.wheelSelfRotation = 0
+		this.wheelSelfRotationLeft = 0;
+		this.wheelSelfRotationRight = 0;
 		
 
 		// this.roofTexture;
@@ -153,11 +154,16 @@ class MyVehicle extends CGFobject {
     		this.posX = nextPositionX*4;
     		this.posZ = nextPositionZ*4;
 
-    		if (this.speed > 0) {
-    			this.wheelSelfRotation += 0.1;
-    		} else {
-				this.wheelSelfRotation -= 0.1;
+    		if (this.speed != 0) {
+    			if (this.speed < 0) {
+    				this.wheelSelfRotationRight += 0.08;
+    				this.wheelSelfRotationLeft -= 0.08;
+    			} else {
+					this.wheelSelfRotationRight -= 0.08;
+    				this.wheelSelfRotationLeft += 0.08;
+    			}
     		}
+
 
    	 	} else {
    	 		console.log("error");
@@ -380,6 +386,7 @@ class MyVehicle extends CGFobject {
 
 		this.scene.pushMatrix();
 		this.scene.translate(0.4+this.wheelDiameter/2, this.wheelDiameter/2,1.95);
+		this.scene.rotate(this.wheelSelfRotationRight, 0, 0, 1);
 		this.scene.scale(0.35,0.35,1);
 		this.backRightWheel.display();
 		this.scene.popMatrix();
@@ -387,6 +394,7 @@ class MyVehicle extends CGFobject {
 		this.scene.pushMatrix();
 		this.scene.translate(0.4+this.wheelDiameter/2, this.wheelDiameter/2,0.55);
 		this.scene.rotate(Math.PI, 0, 1, 0);
+		this.scene.rotate(this.wheelSelfRotationLeft, 0, 0, 1);
 		this.scene.scale(0.35,0.35,1);
 		this.backLeftWheel.display();
 		this.scene.popMatrix();
@@ -395,7 +403,7 @@ class MyVehicle extends CGFobject {
 		this.scene.pushMatrix();
 		this.scene.translate(0.4+this.wheelDiameter/2 + 1 + 2*0.4 + 2*0.35, this.wheelDiameter/2,1.95);
 		this.scene.rotate(this.wheelRotationCounter, 0, 1, 0);	
-		this.scene.rotate(this.wheelSelfRotation, 0, 0, 1);
+		this.scene.rotate(this.wheelSelfRotationRight, 0, 0, 1);
 		this.scene.scale(0.35,0.35,1);
 		this.frontRightWheel.display();
 		this.scene.popMatrix();
@@ -404,7 +412,8 @@ class MyVehicle extends CGFobject {
 		this.scene.pushMatrix();
 		this.scene.translate(0.4+this.wheelDiameter/2 + 1 + 2*0.4 + 2*0.35,this.wheelDiameter/2,0.55);
 		this.scene.rotate(Math.PI, 0, 1, 0);
-		this.scene.rotate(this.wheelRotationCounter, 0, 1, 0);	
+		this.scene.rotate(this.wheelRotationCounter, 0, 1, 0);
+		this.scene.rotate(this.wheelSelfRotationLeft, 0, 0, 1);	
 		this.scene.scale(0.35,0.35,1);
 		this.frontLeftWheel.display();
 		this.scene.popMatrix();
