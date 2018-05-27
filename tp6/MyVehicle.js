@@ -30,17 +30,9 @@ class MyVehicle extends CGFobject {
 
 		this.shouldUptePos = false;
 
-		// this.anchorX = 0;
-		// this.anchorZ = 1;
-
-		// this.anchor = 0;
-
 		this.wheelRotationCounter = 0;
 		this.wheelSelfRotationLeft = 0;
 		this.wheelSelfRotationRight = 0;
-		
-
-		// this.roofTexture;
 
 		this.myHood = new MyQuad(scene, 0, 1, 0, 1);
 		this.top = new MyQuad(scene, 0, 1, 0, 1);
@@ -52,9 +44,10 @@ class MyVehicle extends CGFobject {
 
 		// this.windsheet = new MyHood(scene, 0, 1, 0, 1, 10, 2);
 
+
+		// Cart Parts
 		this.windsheet = new MyQuad(scene, 0, 1, 0, 1);
 		this.frontEngine = new MyQuad(scene, 0, 1, 0, 1);
-
 
 		this.back = new MyQuad(scene, 0, 1, 0, 1);
 
@@ -70,33 +63,8 @@ class MyVehicle extends CGFobject {
 		this.leftSideCapo = new MyQuad(scene, 0, 1, 0, 1);
 		this.leftSideAll = new MyQuad(scene, 0, 1, 0, 1);
 
-		// this.leftSide = new MyQuad(scene, 0, 1, 0, 1);
-
-		// this.frontLeftLght.setAmbient(0.5, 0.5, 0.5, 1);
-		// this.frontLeftLght.setDiffuse(1.0, 1.0, 1.0, 1.0);
-		// this.frontLeftLght.setSpecular(-1,-1,-1,1);	
-		
-
-
 		this.leftLight = new MyLamp(scene, 20, 20);
 		this.leftRight = new MyLamp(scene, 20, 20);
-
-		this.leftLightPos = [0,0,0];
-		this.rightLightPos = [0,0,0];
-		
-
-
-		// this.frontLeftLght = new CGFlight(this.scene, "fl");
-		// // this.frontLeftLght.setPosition(4, 6, 1, 1);
-
-		// this.frontLeftLght.setAmbient(0.5, 0.5, 0.5, 1);
-		// this.frontLeftLght.setDiffuse(1.0, 1.0, 1.0, 1.0);
-		// this.frontLeftLght.setSpecular(1,1,0,1);
-		// this.frontLeftLght.setVisible(true);
-		// this.frontLeftLght.enable();
-		// this.frontLeftLght.update();
-		// this.scene.lights[1] = this.frontLeftLght;
-
 
 		this.initBuffers();
 	};
@@ -150,31 +118,36 @@ class MyVehicle extends CGFobject {
 
     	// console.log("altimetry:" + this.scene.altimetry[][nextZRounded]);
 
-    	if (this.scene.altimetry[nextZRounded][nextXRounded] < 0.5) {
-    		this.posX = nextPositionX*4;
-    		this.posZ = nextPositionZ*4;
+    	if (nextZRounded < this.scene.altimetry.length && nextXRounded < this.scene.altimetry.length) {
 
-    		if (this.speed != 0) {
-    			if (this.speed < 0) {
-    				this.wheelSelfRotationRight += 0.08;
-    				this.wheelSelfRotationLeft -= 0.08;
-    			} else {
-					this.wheelSelfRotationRight -= 0.08;
-    				this.wheelSelfRotationLeft += 0.08;
-    			}
-    		}
+	    	if (this.scene.altimetry[nextZRounded][nextXRounded] < 0.5) {
+	    		this.posX = nextPositionX*4;
+	    		this.posZ = nextPositionZ*4;
 
+	    		if (this.speed != 0) {
+	    			if (this.speed < 0) {
+	    				this.wheelSelfRotationRight += 0.05;
+	    				this.wheelSelfRotationLeft -= 0.05;
+	    			} else {
+						this.wheelSelfRotationRight -= 0.05;
+	    				this.wheelSelfRotationLeft += 0.05;
+	    			}
+	    		}
 
+	   	 	} else {
+   	 			console.log("error");
+   	 			this.posX = oldX;
+   	 			this.posZ = oldZ;
+   	 			this.speed = 0;
+   	 		}
    	 	} else {
    	 		console.log("error");
    	 		this.posX = oldX;
    	 		this.posZ = oldZ;
-   	 		this.speed = 0;
+   	 		this.speed = 0;	
    	 	}
 
-
     	
-
 	};
 
 
@@ -192,37 +165,31 @@ class MyVehicle extends CGFobject {
 
 	display() {
 		
-		// this.scene.translate(-2, 0, -1.25);
+	
 		super.display();
+
+		// Setting car to be centered in the scene
 		this.scene.translate(-2, 0, -1.25);
-		// this.scene.popMatrix();
-		
 		this.scene.pushMatrix();
 		this.scene.translate(this.posX, this.posY, this.posZ);
 		this.scene.rotate(-this.angleAlpha, 0, 1, 0);
-		// this.scene.popMatrix();
 
-		// Atras do carro
+		// Car Back
 		this.scene.vehicleAppearances[this.scene.BackTexture].apply();
-
 		this.scene.pushMatrix();
 		this.scene.translate(0, 1+this.ground, 2.5/2);
 		this.scene.rotate(-Math.PI/2, 0,1,0);
-		// this.scene.rotate(Math.PI, 0,0,1);
 		this.scene.scale(2.5, 2, 1);	
 		this.back.display();
 		this.scene.popMatrix();
 
 
-
 		this.scene.vehicleAppearances[this.scene.SideTexture].apply();
-
-		// Lado direito
+		// Right Side
 		// Parachoque trazeiro
 		this.scene.pushMatrix();
 		this.scene.translate(this.partDist/2, this.ground+0.55/2, 2.5);
 		this.scene.scale(0.4, 0.55, 1);	
-
 		this.rightSideParachoqueTrazeiro.display();
 		this.scene.popMatrix();
 
@@ -230,7 +197,6 @@ class MyVehicle extends CGFobject {
 		this.scene.pushMatrix();
 		this.scene.translate(this.side/2, this.ground+0.55/2, 2.5);
 		this.scene.scale(1.8, 0.55, 1);	
-
 		this.rightSideParalamas.display();
 		this.scene.popMatrix();
 
@@ -238,7 +204,6 @@ class MyVehicle extends CGFobject {
 		this.scene.pushMatrix();
 		this.scene.translate(this.side-this.partDist/2, this.ground+0.55/2, 2.5);
 		this.scene.scale(0.4, 0.55, 1);	
-
 		this.rightSideParachoqueDianteiro.display();
 		this.scene.popMatrix();
 
@@ -246,7 +211,6 @@ class MyVehicle extends CGFobject {
 		this.scene.pushMatrix();
 		this.scene.translate((this.side-1.1)/2, 1.4, 2.5);
 		this.scene.scale(this.side-this.wheelDiameter-this.partDist, 2-0.55, 1);	
-
 		this.rightSideAll.display();
 		this.scene.popMatrix();
 
@@ -254,20 +218,16 @@ class MyVehicle extends CGFobject {
 		this.scene.pushMatrix();
 		this.scene.translate(this.side-(this.partDist+this.wheelDiameter)/2, this.ground+(0.40)/2+0.55, 2.5);
 		this.scene.scale(1.1, 0.5, 1);	
-
 		this.rightSideCapo.display();
 		this.scene.popMatrix();
 
 
-
-
-		// Lado esquerdo
+		// Left Side
 		// Parachoque trazeiro
 		this.scene.pushMatrix();
 		this.scene.translate(this.partDist/2, this.ground+0.55/2, 0);
 		this.scene.rotate(Math.PI, 0,1,0);
 		this.scene.scale(0.4, 0.55, 1);	
-
 		this.leftSideParachoqueTrazeiro.display();
 		this.scene.popMatrix();
 
@@ -276,7 +236,6 @@ class MyVehicle extends CGFobject {
 		this.scene.translate(this.side/2, this.ground+0.55/2, 0);
 		this.scene.rotate(Math.PI, 0,1,0);
 		this.scene.scale(1.8, 0.55, 1);	
-
 		this.leftSideParalamas.display();
 		this.scene.popMatrix();
 
@@ -285,7 +244,6 @@ class MyVehicle extends CGFobject {
 		this.scene.translate(this.side-this.partDist/2, this.ground+0.55/2, 0);
 		this.scene.rotate(Math.PI, 0,1,0);
 		this.scene.scale(0.4, 0.55, 1);	
-
 		this.leftSideParachoqueDianteiro.display();
 		this.scene.popMatrix();
 
@@ -294,7 +252,6 @@ class MyVehicle extends CGFobject {
 		this.scene.translate((this.side-1.1)/2, 1.40, 0);
 		this.scene.rotate(Math.PI, 0,1,0);
 		this.scene.scale(this.side-this.wheelDiameter-this.partDist, 2-0.5, 1);	
-
 		this.leftSideAll.display();
 		this.scene.popMatrix();
 
@@ -303,7 +260,6 @@ class MyVehicle extends CGFobject {
 		this.scene.translate(this.side-(this.partDist+this.wheelDiameter)/2, this.ground+(0.40)/2+0.55, 0);
 		this.scene.rotate(Math.PI, 0,1,0);
 		this.scene.scale(1.1, 0.5, 1);	
-
 		this.leftSideCapo.display();
 		this.scene.popMatrix();
 
@@ -371,7 +327,6 @@ class MyVehicle extends CGFobject {
 		this.leftLight.display();
 		this.scene.popMatrix();
 		
-
 		this.scene.pushMatrix();
 		this.scene.translate(this.side+0.2, 1/2+this.ground, 2);
 		this.scene.rotate(Math.PI/2, 0,1,0);
@@ -383,7 +338,6 @@ class MyVehicle extends CGFobject {
 		
 
 		// Wheels
-
 		this.scene.pushMatrix();
 		this.scene.translate(0.4+this.wheelDiameter/2, this.wheelDiameter/2,1.95);
 		this.scene.rotate(this.wheelSelfRotationRight, 0, 0, 1);
@@ -399,7 +353,6 @@ class MyVehicle extends CGFobject {
 		this.backLeftWheel.display();
 		this.scene.popMatrix();
 
-
 		this.scene.pushMatrix();
 		this.scene.translate(0.4+this.wheelDiameter/2 + 1 + 2*0.4 + 2*0.35, this.wheelDiameter/2,1.95);
 		this.scene.rotate(this.wheelRotationCounter, 0, 1, 0);	
@@ -407,7 +360,6 @@ class MyVehicle extends CGFobject {
 		this.scene.scale(0.35,0.35,1);
 		this.frontRightWheel.display();
 		this.scene.popMatrix();
-
 
 		this.scene.pushMatrix();
 		this.scene.translate(0.4+this.wheelDiameter/2 + 1 + 2*0.4 + 2*0.35,this.wheelDiameter/2,0.55);
@@ -417,10 +369,6 @@ class MyVehicle extends CGFobject {
 		this.scene.scale(0.35,0.35,1);
 		this.frontLeftWheel.display();
 		this.scene.popMatrix();
-
-
-		
-		// this.frontLeftLght.setPosition(this.posX+2.1, 1/2+this.ground, this.posZ, 1);
 		
 	};
 };

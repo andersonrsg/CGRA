@@ -97,8 +97,6 @@ class MyCrane extends CGFobject {
 	display() {
 		this.scene.materialDefault.apply();
 
-				// this.scene.pushMatrix();
-
 		//CRANE ROTATION
 		this.scene.pushMatrix();
 		this.scene.rotate(this.rotationCounterAngle, 0, 1, 0)
@@ -138,7 +136,6 @@ class MyCrane extends CGFobject {
 		this.scene.popMatrix();
 
 		//CRANE HINGE
-
 		this.scene.pushMatrix();
 		this.scene.translate(0,0.2,0);
 		this.scene.rotate(-Math.PI/4, 1, 0, 0);
@@ -158,8 +155,6 @@ class MyCrane extends CGFobject {
 		this.scene.scale(0.4,0.4,1);
 		this.circlePart.display();
 		this.scene.popMatrix();
-
-
 
 		//CRANE HINGE CIRCLE 2
 		this.scene.pushMatrix();
@@ -208,9 +203,6 @@ class MyCrane extends CGFobject {
 		this.cilinderPart.display();
 		this.scene.popMatrix();
 
-
-
-
 		//CRANE MAGNET CIRCLE 1
 		this.scene.pushMatrix();
 		this.scene.translate(0,0.2+0.2+10/Math.sqrt(2)-3.5/Math.sqrt(2)-((1/4)*5),10/Math.sqrt(2)+3.5/Math.sqrt(2));
@@ -219,7 +211,6 @@ class MyCrane extends CGFobject {
 		this.scene.scale(0.8,0.8,1);
 		this.circlePart.display();
 		this.scene.popMatrix();
-
 
 
 		//CRANE MAGNET CIRCLE 2
@@ -241,7 +232,6 @@ class MyCrane extends CGFobject {
 		}
 
 		this.scene.popMatrix();
-		// this.scene.popMatrix();
 
 	};
 };

@@ -14,31 +14,14 @@ class MyWheel extends CGFobject {
 
 	};
 
-	/*update(currTime) {
-		var diff = currTime - this.oldCurrTime;
-		var aux = diff / 1000
-
-		// var angle = currTime * 10 * Math.PI * -2;
-
-		this.clockSecond.setAngle(360 / 60 * aux);
-		this.clockMinute.setAngle(360 / 60 / 60 * aux);
-		this.clockHour.setAngle(  360 / 60 / 60 / 60 * aux);
-
-		this.oldCurrTime = currTime;
-	};*/
 
 	initBuffers() {
 
-
-
-
 	};
-
-	//teta = 2pi/slices
 
 	display() {
 
-		this.scene.carbonCar.apply();
+		this.scene.camuflageCar.apply();
 		this.cilinder.display();
 
 		this.scene.tableAppearance.apply();
