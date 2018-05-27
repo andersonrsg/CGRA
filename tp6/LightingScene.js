@@ -504,12 +504,11 @@ class LightingScene extends CGFscene
 		//VEÍCULO
 		this.vehicle.maxSpeed = this.Speed;
 
-		this.pushMatrix();
-		// this.translate(-2, 0, -1.25);
-		// this.translate(2,0,-9.5);
-
-		this.vehicle.display();
-		this.popMatrix();
+		if (!(this.crane.currentState == 2 || this.crane.currentState == 3 || this.crane.currentState == 4)) {
+			this.pushMatrix();
+			this.vehicle.display();
+			this.popMatrix();
+		}
 
 	};
 };

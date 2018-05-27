@@ -28,6 +28,8 @@ class MyVehicle extends CGFobject {
 		
 		this.time = 0;
 
+		this.shouldUptePos = false;
+
 		// this.anchorX = 0;
 		// this.anchorZ = 1;
 
@@ -99,6 +101,13 @@ class MyVehicle extends CGFobject {
 	};
 
 	update(currTime) {
+
+		if (this.shouldUptePos == true) {
+			this.shouldUptePos = false;
+			this.angleAlpha += Math.PI;
+			this.posZ -= 16;
+			this.posX -= 3;
+		}
 
 		// console.log("curr time: "+ currTime)
 		var carTime = currTime / 100;

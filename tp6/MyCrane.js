@@ -21,7 +21,7 @@ class MyCrane extends CGFobject {
 		 this.rotationCounterAngle = 0;
 
 
-		 var CRANE_STATE = { "WAITING":1, "SUBINDO":2, "MOVING":3, "DESCENDO":4, "MOVINGBACK":5};
+		 var CRANE_STATE = { "WAITING":1, "GOINGUP":2, "MOVING":3, "GOINGDOWN":4, "UPDATINGVEHICLE":5 , "MOVINGBACK":6};
 		 Object.freeze(CRANE_STATE);
 
 		 this.currentState = CRANE_STATE.WAITING;
@@ -38,9 +38,9 @@ class MyCrane extends CGFobject {
 				if (this.scene.vehicle.posX-3 <= this.imanPosXMax && this.scene.vehicle.posX-3 >= this.imanPosXMin && this.scene.vehicle.posZ <= this.imanPosZMax && this.scene.vehicle.posZ >= this.imanPosZMin) 
 				{
 
-					if (this.scene.vehicle.speed == 0) {			
+					if (this.scene.vehicle.speed == 0) {
+						this.currentState = 2;			
 						this.scene.vehicle.isOn = false;
-						this.currentState = 2;
 					}
 				}
 			}
@@ -65,15 +65,26 @@ class MyCrane extends CGFobject {
 				if (this.scene.vehicle.posY > 0) {
 					this.scene.vehicle.posY -= 0.005;
 				} else {
+					this.scene.vehicle.isOn = true;
+					this.scene.vehicle.shouldUptePos = true;
 					this.currentState = 5;
 				}
 			}
 
+			// var counter;
 			if (this.currentState == 5) {
+
+				// if (counter < 500) {
+				// 	counter++;
+				// } else {
+					this.currentState = 6;
+				// }
+			}
+
+			if (this.currentState == 6) {
 				if (this.rotationCounterAngle > 0) {
 					this.rotationCounterAngle -= 0.01;
 				} else {
-					this.scene.vehicle.isOn = true;
 					this.currentState = 1;
 				}
 			}
@@ -88,7 +99,9 @@ class MyCrane extends CGFobject {
 				// this.scene.pushMatrix();
 
 		//CRANE ROTATION
+		this.scene.pushMatrix();
 		this.scene.rotate(this.rotationCounterAngle, 0, 1, 0)
+		
 
 		//CRANE BASE CILINDER
 		this.scene.pushMatrix();
@@ -220,15 +233,11 @@ class MyCrane extends CGFobject {
 
 		if (this.currentState == 2 || this.currentState == 3 || this.currentState == 4) {
 			this.scene.pushMatrix();
-			this.scene.translate(0,0,10/Math.sqrt(2)+3.5/Math.sqrt(2));
-			// this.scene.rotate(Math.PI/2,1,0,0);
-			// this.scene.rotate(Math.PI,0,1,0);
-			this.scene.scale(0.8,0.8,1);
 			this.scene.vehicle.display();
 			this.scene.popMatrix();
 		}
 
-
+		this.scene.popMatrix();
 		// this.scene.popMatrix();
 
 	};
