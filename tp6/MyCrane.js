@@ -9,16 +9,37 @@ class MyCrane extends CGFobject {
 		 this.circlePart = new MyCircle(scene,100,1,0);
 		 this.quadPart = new MyQuad(scene,0,1,0,1);
 
-		 this.angleRot = 0;
+		 //MAGNET COORDINATES
+		 this.imanPosXMin = -0.8;
+		 this.imanPosXMax = 0.8;
+		 this.imanPosZMin = 10/Math.sqrt(2) + 3.5/Math.sqrt(2)-0.05-0.8;
+		 this.imanPosZMax = 10/Math.sqrt(2) + 3.5/Math.sqrt(2)-0.05+0.8;
+
+		 //RODAR
+		 this.reset = 0;
+		 this.rotationCounterAngle = 0
 
 		this.initBuffers();
 	};
 
 	update(currTime) {
 
-		while(this.angleRot < Math.PI){
-			this.angleRot = this.angleRot + Math.PI/currTime;
-		}
+	/*	if (this.scene.vehicle.posX <= this.imanPosXMax && this.scene.vehicle.posX >= this.imanPosXMin && this.scene.vehicle.posZ <= this.imanPosZMaz && this.scene.vehicle.posZ >= this.imanPosZMin) {
+			if( this.reset == 1) {
+	    this.reset = 0;
+	    this.rotationCounterAngle = 0;
+			}
+			else {
+				if (estado == rotationfinished) {
+			 			this.rotationCounterAngle += 0.1;
+					}
+					 else if (estado == voltarpraposinicial) {
+			 		 this.rotationCounterAngle -= 0.1;
+				 }
+			 } */
+
+
+
 
 	};
 
@@ -26,9 +47,10 @@ class MyCrane extends CGFobject {
 	display() {
 		this.scene.materialDefault.apply()
 
-		this.scene.pushMatrix()
+		this.scene.pushMatrix();
 
-		this.scene.rotate(this.angleRot,0,1,0)
+		//CRANE ROTATION
+	//	this.scene.rotate(this.rotationCounterAngle, 0, 1, 0)
 
 		//CRANE BASE CILINDER
 		this.scene.pushMatrix()
@@ -157,10 +179,7 @@ class MyCrane extends CGFobject {
 		this.circlePart.display()
 		this.scene.popMatrix()
 
-
-
-		this.scene.pushMatrix()
-
+		this.scene.popMatrix();
 
 	};
 };

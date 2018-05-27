@@ -537,9 +537,6 @@ initLights()
 		this.poste1.display();
 		this.popMatrix();
 
-		//this.crane.update(10000000);
-
-
 		//VEÍCULO
 		this.vehicle.maxSpeed = this.Speed;
 
