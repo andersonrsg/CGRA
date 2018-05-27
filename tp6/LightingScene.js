@@ -263,7 +263,7 @@ initLights()
 		// // this.lights[0].setVisible(true); // show marker on light position (different from enabled)
 
 		// this.lights[0].setPosition(10.5, 6.0, 1.0, 1.0);
-		
+
 		this.lights[0].setPosition(-4, 6, 1, 1);
 		this.lights[0].setAmbient(0, 0, 0, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
@@ -275,12 +275,12 @@ initLights()
 		this.lights[1].enable();
 
 		this.lights[2].setPosition(0, 6.3, -14.2, 1);
-		this.lights[2].setVisible(true); 
+		this.lights[2].setVisible(true);
 		this.lights[2].setAmbient(0, 0, 0, 1);
 		this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
 
 
-		
+
 
 
 
@@ -296,7 +296,7 @@ initLights()
 		// this.lights[0].setSpecular(1,1,0,1);
 		// this.lights[0].enable();
 
-		
+
 
 		// this.lights[2].setAmbient(0, 0, 0, 1);
 		// this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
@@ -525,11 +525,11 @@ initLights()
 
 		// ---- BEGIN Scene drawing section
 
-		
+
 
 		// ---- END Scene drawing section
 
-		
+
 		this.pushMatrix();
 		// this.translate(-2, 0, -1.25);
 		// this.translate(2,0,-9.5);
@@ -559,7 +559,7 @@ initLights()
 		// Luzes
 		if (this.Poste_1 == true) {
 			this.lights[2].enable();
-		} 
+		}
 		if (this.Poste_1 == false) {
 			this.lights[2].disable();
 		}
@@ -575,10 +575,10 @@ initLights()
 		// }
 
 		if (this.Luzes_Visiveis == true) {
-			for (var i = 0; i < this.lights.length ; i++) 
+			for (var i = 0; i < this.lights.length ; i++)
 				this.lights[i].setVisible(true);
 		} else {
-			for (var i = 0; i < this.lights.length ; i++) 
+			for (var i = 0; i < this.lights.length ; i++)
 				this.lights[i].setVisible(false);
 		}
 
@@ -599,6 +599,8 @@ initLights()
 		this.rotate(-Math.PI/2, 0, 1, 0);
 		this.poste1.display();
 		this.popMatrix();
+
+		//this.crane.update(10000000);
 
 
 	};

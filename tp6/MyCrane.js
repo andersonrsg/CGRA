@@ -9,16 +9,26 @@ class MyCrane extends CGFobject {
 		 this.circlePart = new MyCircle(scene,100,1,0);
 		 this.quadPart = new MyQuad(scene,0,1,0,1);
 
+		 this.angleRot = 0;
+
 		this.initBuffers();
 	};
 
 	update(currTime) {
+
+		while(this.angleRot < Math.PI){
+			this.angleRot = this.angleRot + Math.PI/currTime;
+		}
 
 	};
 
 
 	display() {
 		this.scene.materialDefault.apply()
+
+		this.scene.pushMatrix()
+
+		this.scene.rotate(this.angleRot,0,1,0)
 
 		//CRANE BASE CILINDER
 		this.scene.pushMatrix()
@@ -149,7 +159,7 @@ class MyCrane extends CGFobject {
 
 
 
-
+		this.scene.pushMatrix()
 
 
 	};
