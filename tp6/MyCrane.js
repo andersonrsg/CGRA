@@ -42,6 +42,7 @@ class MyCrane extends CGFobject {
 				{
 
 					if (this.scene.vehicle.speed == 0) {
+						this.counter = 0;
 						this.currentState = 2;			
 						this.scene.vehicle.isOn = false;
 					}
