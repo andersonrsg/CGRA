@@ -230,30 +230,31 @@ class LightingScene extends CGFscene
 		this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 			Camuflage: 4, Carbon: 5, Red: 6, Yellow: 7};
 
-		this.crane = new MyCrane(this);
+			this.crane = new MyCrane(this);
 
- 		
 
-};
 
-initCameras()
-{
-	this.camera = new CGFcamera(0.8, 0.1, 700, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
-};
+		};
 
-update(currTime) {
+		initCameras()
+		{
+			this.camera = new CGFcamera(0.8, 0.1, 700, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
+		};
 
-	var newCurrTime = currTime - this.oldCurrTime;
-	this.oldCurrTime = currTime;
+		update(currTime) {
 
-	this.vehicle.update(newCurrTime);
+			var newCurrTime = currTime - this.oldCurrTime;
+			this.oldCurrTime = currTime;
 
-	this.checkKeys();
-};
+			this.vehicle.update(newCurrTime);
+			this.crane.update(newCurrTime);
 
-initLights()
-{
-	this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
+			this.checkKeys();
+		};
+
+		initLights()
+		{
+			this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
 		// this.setGlobalAmbientLight(0,0,0, 1.0);
 
 		this.lights[0].setPosition(-4, 6, 1, 1);
@@ -299,7 +300,7 @@ initLights()
 
 	Controls()
 	{
-	
+
 	};
 
 	checkKeys()
@@ -307,88 +308,92 @@ initLights()
 		this.keysPressed = false;
 		var text="Keys pressed: ";
 
-		if (this.gui.isKeyPressed("KeyW"))
-		{
-			text += " W ";
-			this.keysPressed = true;
+		if (this.vehicle.isOn == true) {
 
-			if (this.vehicle.speed <= this.vehicle.maxSpeed) {
-				this.vehicle.speed += this.vehicle.acceleration;
+			if (this.gui.isKeyPressed("KeyW"))
+			{
+				text += " W ";
+				this.keysPressed = true;
+
+				if (this.vehicle.speed <= this.vehicle.maxSpeed) {
+					this.vehicle.speed += this.vehicle.acceleration;
+				}
+
 			}
+			if (this.gui.isKeyPressed("KeyS"))
+			{
+				text += " S ";
+				this.keysPressed = true;
 
-		}
-		if (this.gui.isKeyPressed("KeyS"))
-		{
-			text += " S ";
-			this.keysPressed = true;
-
-			if (this.vehicle.speed >= -this.vehicle.maxSpeed) {
-				this.vehicle.speed -= this.vehicle.acceleration;
+				if (this.vehicle.speed >= -this.vehicle.maxSpeed) {
+					this.vehicle.speed -= this.vehicle.acceleration;
+				}
 			}
-		}
-		if (this.gui.isKeyPressed("KeyA"))
-		{
-			text += " A ";
-			this.keysPressed = true;
+			if (this.gui.isKeyPressed("KeyA"))
+			{
+				text += " A ";
+				this.keysPressed = true;
 
-			if (this.vehicle.wheelRotationCounter < Math.PI/4) {
-				this.vehicle.wheelRotationCounter += 0.02;
-			}
-			if (this.vehicle.speed > 0) {
-				this.vehicle.angleAlpha -= 0.01;
-			} else if (this.vehicle.speed < 0) {
-				this.vehicle.angleAlpha += 0.01;
-			}
-		}
-
-		if (this.gui.isKeyPressed("KeyD"))
-		{
-			text += " D ";
-			this.keysPressed = true;
-
-			if (this.vehicle.wheelRotationCounter > -Math.PI/4) {
-				this.vehicle.wheelRotationCounter -= 0.02;
-			}
-
-			if (this.vehicle.speed > 0) {
-				this.vehicle.angleAlpha += 0.01;
-			} else if (this.vehicle.speed < 0) {
-				this.vehicle.angleAlpha -= 0.01;
-			}
-
-		}
-
-		if (this.keysPressed) {
-			console.log(text);
-		} else {
-			this.vehicle.wheelRotationAngle	= 0;
-
-			if (this.Smooth_Deceleration == true) {
+				if (this.vehicle.wheelRotationCounter < Math.PI/4) {
+					this.vehicle.wheelRotationCounter += 0.02;
+				}
 				if (this.vehicle.speed > 0) {
-					this.vehicle.speed -= 0.01;
+					this.vehicle.angleAlpha -= 0.01;
+				} else if (this.vehicle.speed < 0) {
+					this.vehicle.angleAlpha += 0.01;
 				}
-				if (this.vehicle.speed < 0) {
-					this.vehicle.speed += 0.01;
+			}
+
+			if (this.gui.isKeyPressed("KeyD"))
+			{
+				text += " D ";
+				this.keysPressed = true;
+
+				if (this.vehicle.wheelRotationCounter > -Math.PI/4) {
+					this.vehicle.wheelRotationCounter -= 0.02;
+				}
+
+				if (this.vehicle.speed > 0) {
+					this.vehicle.angleAlpha += 0.01;
+				} else if (this.vehicle.speed < 0) {
+					this.vehicle.angleAlpha -= 0.01;
 				}
 
 			}
 
-			if (this.vehicle.speed > -0.011 && this.vehicle.speed < 0.011) {
-				this.vehicle.speed = 0;
+
+			if (this.keysPressed) {
+				console.log(text);
+			} else {
+				this.vehicle.wheelRotationAngle	= 0;
+
+				if (this.Smooth_Deceleration == true) {
+					if (this.vehicle.speed > 0) {
+						this.vehicle.speed -= 0.01;
+					}
+					if (this.vehicle.speed < 0) {
+						this.vehicle.speed += 0.01;
+					}
+
+				}
+
+				if (this.vehicle.speed > -0.011 && this.vehicle.speed < 0.011) {
+					this.vehicle.speed = 0;
+				}
+
+				if (this.vehicle.wheelRotationCounter > -0.021 && this.vehicle.wheelRotationCounter < 0.021) {
+					this.vehicle.wheelRotationCounter = 0;
+				}
+
 			}
 
-			if (this.vehicle.wheelRotationCounter > -0.021 && this.vehicle.wheelRotationCounter < 0.021) {
-				this.vehicle.wheelRotationCounter = 0;
-			}
-
-		}
-
-		if (!this.gui.isKeyPressed("KeyD") && !this.gui.isKeyPressed("KeyA")) {
-			if (this.vehicle.wheelRotationCounter < 0) {
-				this.vehicle.wheelRotationCounter += 0.02;
-			}
-			if (this.vehicle.wheelRotationCounter > 0) {
-				this.vehicle.wheelRotationCounter -= 0.02;
+			if (!this.gui.isKeyPressed("KeyD") && !this.gui.isKeyPressed("KeyA")) {
+				if (this.vehicle.wheelRotationCounter < 0) {
+					this.vehicle.wheelRotationCounter += 0.02;
+				}
+				if (this.vehicle.wheelRotationCounter > 0) {
+					this.vehicle.wheelRotationCounter -= 0.02;
+				}
 			}
 		}
 

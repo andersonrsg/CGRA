@@ -10,6 +10,8 @@ class MyVehicle extends CGFobject {
 		this.wheelDiameter = 0.7;
 		this.side = 4
 
+		this.isOn = true;
+
 		// Movement variables
 		this.acceleration = 0.05;
 		this.speed = 0;
@@ -98,7 +100,7 @@ class MyVehicle extends CGFobject {
 
 	update(currTime) {
 
-		console.log("curr time: "+ currTime)
+		// console.log("curr time: "+ currTime)
 		var carTime = currTime / 100;
 
 		// Speed Parameters
@@ -130,11 +132,11 @@ class MyVehicle extends CGFobject {
     	nextXRounded += 5;
 		nextZRounded += 5;
 
-    	console.log("nextX: "+nextPositionX);
-    	console.log("nextZ: " +nextPositionX);
+    	// console.log("nextX: "+nextPositionX);
+    	// console.log("nextZ: " +nextPositionX);
 
-    	console.log("rounded: "+nextXRounded);
-    	console.log("rounded: "+ nextZRounded);
+    	// console.log("rounded: "+nextXRounded);
+    	// console.log("rounded: "+ nextZRounded);
 
     	// console.log("altimetry:" + this.scene.altimetry[][nextZRounded]);
 
@@ -183,8 +185,9 @@ class MyVehicle extends CGFobject {
 		this.scene.pushMatrix();
 		this.scene.translate(this.posX, this.posY, this.posZ);
 		this.scene.rotate(-this.angleAlpha, 0, 1, 0);
+		// this.scene.popMatrix();
 
-
+		// Atras do carro
 		this.scene.vehicleAppearances[this.scene.BackTexture].apply();
 
 		this.scene.pushMatrix();
