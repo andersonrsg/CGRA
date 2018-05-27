@@ -28,7 +28,7 @@ class MyInterface extends CGFinterface {
 		// the identifier 'doSomething' must be a function declared as part of that object (i.e. a member of the scene class)
 		// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); };
 
-		this.gui.add(this.scene, 'Controles');
+		this.gui.add(this.scene, 'Controls');
 
 		// add a group of controls (and open/expand by defult)
 
@@ -38,9 +38,9 @@ class MyInterface extends CGFinterface {
 		// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
 		// e.g. this.option1=true; this.option2=false;
 
-		group.add(this.scene, 'Eixos');
-		group.add(this.scene, 'Desaceleracao_Continua');
-		group.add(this.scene, 'Luzes_Visiveis');
+		group.add(this.scene, 'Axis');
+		group.add(this.scene, 'Smooth_Deceleration');
+		group.add(this.scene, 'Visible_Lights');
 		group.add(this.scene, 'Luz_Global');
 
 		// add a slider
@@ -57,12 +57,14 @@ class MyInterface extends CGFinterface {
     	groupCarTexture.add(this.scene, 'SideTexture', this.scene.vehicleAppearanceList );
     	groupCarTexture.add(this.scene, 'WindsheetTexture', this.scene.vehicleAppearanceList );
     	groupCarTexture.add(this.scene, 'BackTexture', this.scene.vehicleAppearanceList );
-    	groupCarTexture.add(this.scene, 'CapoTexture', this.scene.vehicleAppearanceList );
-    	groupCarTexture.add(this.scene, 'MotorTexture', this.scene.vehicleAppearanceList );
+    	groupCarTexture.add(this.scene, 'HoodTexture', this.scene.vehicleAppearanceList );
+    	groupCarTexture.add(this.scene, 'EngineTexture', this.scene.vehicleAppearanceList );
 
 
-		var groupLights = this.gui.addFolder("Luzes");
-		groupLights.add(this.scene, 'Poste_1');
+		var groupLights = this.gui.addFolder("Lights");
+		groupLights.add(this.scene, 'Light_Pole1');
+		groupLights.add(this.scene, 'Light_Pole2');
+		groupLights.add(this.scene, 'Light_Pole3');
 
 
 

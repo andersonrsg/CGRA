@@ -31,10 +31,9 @@ class MyVehicle extends CGFobject {
 
 		// this.anchor = 0;
 
-		// this.wheelRotationAngle = 0;
 		this.wheelRotationCounter = 0;
-		// this.Apressed = false;
-		// this.Dpressed = false;
+		this.wheelSelfRotation = 0
+		
 
 		// this.roofTexture;
 
@@ -142,6 +141,13 @@ class MyVehicle extends CGFobject {
     	if (this.scene.altimetry[nextZRounded][nextXRounded] < 0.5) {
     		this.posX = nextPositionX*4;
     		this.posZ = nextPositionZ*4;
+
+    		if (this.speed > 0) {
+    			this.wheelSelfRotation += 0.1;
+    		} else {
+				this.wheelSelfRotation -= 0.1;
+    		}
+
    	 	} else {
    	 		console.log("error");
    	 		this.posX = oldX;
@@ -150,20 +156,7 @@ class MyVehicle extends CGFobject {
    	 	}
 
 
-    	// this.position += this.speed;
-
-		// this.anchorX = 0.5 * Math.cos(this.angleAlpha) * (this.position);// + this.anchorX);
-		// this.anchorZ = 0.5 * Math.sin(this.angleAlpha) * (this.position);// + this.anchorZ);
-
-		// console.log("X: "+ this.posX);
-		// console.log("Z: "+ this.posZ);
-		// console.log("Speedx: "+ this.speedX);
-		// console.log("Speedz: "+ this.speedZ);
-
-		// console.log("Angle alpha: " + this.angleAlpha);
-
-		// console.log(this.anchorX);
-		// console.log("Speed: " + this.speed);
+    	
 
 	};
 
@@ -184,23 +177,12 @@ class MyVehicle extends CGFobject {
 		
 		// this.scene.translate(-2, 0, -1.25);
 		super.display();
-		// this.scene.rotate(this.angleAlpha, 0, 1, 0);
-		// this.scene.pushMatrix();
 		this.scene.translate(-2, 0, -1.25);
 		// this.scene.popMatrix();
 		
 		this.scene.pushMatrix();
 		this.scene.translate(this.posX, this.posY, this.posZ);
 		this.scene.rotate(-this.angleAlpha, 0, 1, 0);
-
-		// this.scene.pushMatrix();
-		// this.scene.translate(this.posX, 0, this.posZ);
-		// this.scene.rotate(this.angleAlpha, 0, 1, 0)
-		// this.scene.popMatrix();
-
-		// this.scene.pushMatrix();
-		// this.windsheet.display();
-		// this.scene.popMatrix();
 
 
 		this.scene.vehicleAppearances[this.scene.BackTexture].apply();
@@ -314,7 +296,7 @@ class MyVehicle extends CGFobject {
 		var x = 1.1;
 		var z = 2.5;
 
-		this.scene.vehicleAppearances[this.scene.CapoTexture].apply();
+		this.scene.vehicleAppearances[this.scene.HoodTexture].apply();
 
 		this.scene.pushMatrix();
 		this.scene.translate(this.side - (x/2), 1+this.ground, 2.5/2);
@@ -324,10 +306,7 @@ class MyVehicle extends CGFobject {
 		this.scene.popMatrix();
 
 
-		//Vidro
-		//Dimensoes Vidro
-		// var x = 1.1;
-		// var z = 2.5;
+		//Windsheet 
 
 		this.scene.vehicleAppearances[this.scene.WindsheetTexture].apply();
 
@@ -340,13 +319,8 @@ class MyVehicle extends CGFobject {
 		this.scene.popMatrix();
 
 
-
-		//Frente / Motor
-		//Dimensoes Frente / Motor
-		// var x = 1.1;
-		// var z = 2.5;
-
-		this.scene.vehicleAppearances[this.scene.MotorTexture].apply();
+		// Front, Engine
+		this.scene.vehicleAppearances[this.scene.EngineTexture].apply();
 
 		this.scene.pushMatrix();
 		this.scene.translate(this.side, 1/2+this.ground, 2.5/2);
@@ -357,19 +331,17 @@ class MyVehicle extends CGFobject {
 		this.scene.popMatrix();
 
 
-		// ROOF
+		// Roof
 
 		this.scene.vehicleAppearances[this.scene.RoofTexture].apply();
-		// Dimensoes Top
 		x = this.partDist * 3 + this.wheelDiameter + 1;
-		// Parte de cima
+		
 		this.scene.pushMatrix();
 		this.scene.translate((x/2), 2+this.ground, 2.5/2);
 		this.scene.rotate(-Math.PI/2, 1,0,0);
 		this.scene.scale(x, 2.5, 1);	
 		this.top.display();
 		this.scene.popMatrix();
-
 
 
 		// Farois
@@ -392,10 +364,7 @@ class MyVehicle extends CGFobject {
 
 		
 
-
-
-		// Rodas
-		this.scene.windowAppearance.apply();
+		// Wheels
 
 		this.scene.pushMatrix();
 		this.scene.translate(0.4+this.wheelDiameter/2, this.wheelDiameter/2,1.95);
@@ -410,35 +379,20 @@ class MyVehicle extends CGFobject {
 		this.backLeftWheel.display();
 		this.scene.popMatrix();
 
+
 		this.scene.pushMatrix();
 		this.scene.translate(0.4+this.wheelDiameter/2 + 1 + 2*0.4 + 2*0.35, this.wheelDiameter/2,1.95);
-
-		// if (this.Apressed == true && this.Dpressed == false) {
-			this.scene.rotate(this.wheelRotationCounter, 0, 1, 0);	
-		// }
-		// if (this.Dpressed == true && this.Apressed == false) {
-		// 	this.scene.rotate(-Math.PI/4, 0, 1, 0);
-		// }
-
+		this.scene.rotate(this.wheelRotationCounter, 0, 1, 0);	
+		this.scene.rotate(this.wheelSelfRotation, 0, 0, 1);
 		this.scene.scale(0.35,0.35,1);
 		this.frontRightWheel.display();
 		this.scene.popMatrix();
 
 
-
 		this.scene.pushMatrix();
 		this.scene.translate(0.4+this.wheelDiameter/2 + 1 + 2*0.4 + 2*0.35,this.wheelDiameter/2,0.55);
 		this.scene.rotate(Math.PI, 0, 1, 0);
-
-		// if (this.Apressed == true && this.Dpressed == false) {
-		// 	this.scene.rotate(Math.PI/4, 0, 1, 0);
-
-		// }
-		// if (this.Dpressed == true && this.Apressed == false) {
-		// 	this.scene.rotate(-Math.PI/4, 0, 1, 0);
-		// }
 		this.scene.rotate(this.wheelRotationCounter, 0, 1, 0);	
-
 		this.scene.scale(0.35,0.35,1);
 		this.frontLeftWheel.display();
 		this.scene.popMatrix();

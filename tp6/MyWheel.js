@@ -38,13 +38,13 @@ class MyWheel extends CGFobject {
 
 	display() {
 
-		//var degToRad = Math.PI / 180.0;
-
-		// this.primitiveType = this.scene.gl.TRIANGLES;
-		// this.initGLBuffers();
-
+		this.scene.carbonCar.apply();
 		this.cilinder.display();
+
+		this.scene.tableAppearance.apply();
 		this.circle.display();
+
+		this.scene.materialDefault.apply();
 
 	};
 };

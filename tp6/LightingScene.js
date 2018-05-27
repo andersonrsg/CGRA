@@ -20,6 +20,7 @@ var camuflageTexture = "../resources/images/camuflagem_militar.png"
 var carbonTexture = "../resources/images/fibra_de_carbono.png"
 var redTexture = "../resources/images/vermelho.png"
 var yellowTexture = "../resources/images/amarelo.png"
+var metalTexture = "../resources/images/metal.jpg"
 
 class LightingScene extends CGFscene
 {
@@ -38,25 +39,30 @@ class LightingScene extends CGFscene
 
 		this.enableTextures(true);
 
+		// MENU
 		// Initial Config
-		this.Eixos = false;
-		this.Desaceleracao_Continua = true;
-		this.Luzes_Visiveis = true;
-
+		this.Axis = false;
+		this.Smooth_Deceleration = true;
+		this.Visible_Lights = false;
 		this.Speed = 0.15;
 
-		// Luzes
-		this.Poste_1 = true;
+		// Lights
 		this.Luz_Global = true;
+
+		this.Light_Pole1 = true;
+		this.Light_Pole2 = true;
+		this.Light_Pole3 = true;
+
 
 		// Car Textures
 		this.RoofTexture = 0;
 		this.SideTexture = 1;
 		this.WindsheetTexture = 2;
 		this.BackTexture = 3;
-		this.CapoTexture = 4;
-		this.MotorTexture = 5;
+		this.HoodTexture = 4;
+		this.EngineTexture = 5;
 
+		// State Control
 		this.keysPressed = false;
 
 
@@ -69,11 +75,10 @@ class LightingScene extends CGFscene
 
 		this.axis = new CGFaxis(this);
 
+		// this.myLamp = new MyLamp(this, 6, 20);
 
-		this.myLamp = new MyLamp(this, 6, 20);
-
-		// Trabalho 4
-
+		// Texture Initialization
+		this.materialDefault = new CGFappearance(this);
 
 		this.tableAppearance = new CGFappearance(this);
 		this.tableAppearance.setSpecular(0,0.2,0.2,0.2);
@@ -86,7 +91,6 @@ class LightingScene extends CGFscene
 		this.floorAppearance.setShininess(10);
 		this.floorAppearance.setDiffuse(1,1,1,1);
 		this.floorAppearance.loadTexture(dirtTexture);
-
 
 		this.windowAppearance = new CGFappearance(this);
 		this.windowAppearance.setSpecular(0,0.2,0.2,0.2);
@@ -106,7 +110,6 @@ class LightingScene extends CGFscene
 		this.boardAppearance.setSpecular(0,0.5,0.5,0.5);
 		this.boardAppearance.setShininess(150);
 		this.boardAppearance.setDiffuse(1,1,1,1);
-		// this.boardAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
 		this.boardAppearance.loadTexture(boardTexture);
 
 		this.clockAppearance = new CGFappearance(this);
@@ -116,20 +119,9 @@ class LightingScene extends CGFscene
 		this.clockAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
 		this.clockAppearance.loadTexture(clockTexture);
 
-
-		//
-
-
-
-		// Materials
-		this.materialDefault = new CGFappearance(this);
-
 		this.materialA = new CGFappearance(this);
 		this.materialA.setAmbient(0.3,0.3,0.3,1);
 		this.materialA.setDiffuse(0.6,0.6,0.6,1);
-		// this.materialA.setSpecular(0.2,0.2,0.2,1);
-		// this.materialA.setSpecular(0.8,0.8,0.8,1);
-		// this.materialA.setSpecular(0,0,0.8,1);
 		this.materialA.setSpecular(0,0.2,0.8,1);
 		this.materialA.setShininess(10);
 		this.materialA.setShininess(120);
@@ -140,8 +132,13 @@ class LightingScene extends CGFscene
 		this.materialB.setSpecular(0.8,0.8,0.8,1);
 		this.materialB.setShininess(120);
 
-		//CAR TEXTURES
+		this.metal = new CGFappearance(this);
+		this.metal.setSpecular(0.5,0.5,0.5,1);
+		this.metal.setShininess(200);
+		this.metal.setDiffuse(1,1,1,1);
+		this.metal.loadTexture(metalTexture);
 
+		// CAR TEXTURES
 		this.purpleCar = new CGFappearance(this);
 		this.purpleCar.setSpecular(0,0.2,0.2,0.2);
 		this.purpleCar.setShininess(10);
@@ -156,14 +153,14 @@ class LightingScene extends CGFscene
 
 		this.armyCar = new CGFappearance(this);
 		this.armyCar.setSpecular(0,0.2,0.2,0.2);
-		this.armyCar.setShininess(10);
-		this.armyCar.setDiffuse(1,1,1,1);
+		this.armyCar.setShininess(1);
+		this.armyCar.setDiffuse(0.3,0.3,0.3,1);
 		this.armyCar.loadTexture(greenArmyTexture);
 
 		this.camuflageCar = new CGFappearance(this);
 		this.camuflageCar.setSpecular(0,0.2,0.2,0.2);
 		this.camuflageCar.setShininess(10);
-		this.camuflageCar.setDiffuse(1,1,1,1);
+		this.camuflageCar.setDiffuse(0.3,0.3,0.3,1);
 		this.camuflageCar.loadTexture(camuflageTexture);
 
 		this.carbonCar = new CGFappearance(this);
@@ -185,6 +182,7 @@ class LightingScene extends CGFscene
 		this.yellowCar.loadTexture(yellowTexture);
 
 
+
 		// T6
 
 		this.vehicle = new MyVehicle(this);
@@ -201,8 +199,10 @@ class LightingScene extends CGFscene
 
 		this.setUpdatePeriod(1);
 
-		// Postes
-		this.poste1 = new MyPoste(this);
+		// Poles
+		this.pole1 = new MyPole(this);
+		this.pole2 = new MyPole(this);
+		this.pole3 = new MyPole(this);
 
 
 
@@ -230,9 +230,9 @@ class LightingScene extends CGFscene
 		this.vehicleAppearanceList = { Default : 0, Purple: 1, Blue: 2, Army: 3,
 			Camuflage: 4, Carbon: 5, Red: 6, Yellow: 7};
 
-			this.crane = new MyCrane(this);
+		this.crane = new MyCrane(this);
 
- // this.currVehicleAppearance = this.CarTexture;
+ 		
 
 };
 
@@ -256,90 +256,39 @@ initLights()
 	this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
 		// this.setGlobalAmbientLight(0,0,0, 1.0);
 
-		// Positions for four lights
-		// this.lights[0].setPosition(4, 6, 1, 1);
-		// // this.lights[0].setVisible(true); // show marker on light position (different from enabled)
-
-		// this.lights[0].setPosition(10.5, 6.0, 1.0, 1.0);
-
 		this.lights[0].setPosition(-4, 6, 1, 1);
 		this.lights[0].setAmbient(0, 0, 0, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		// this.lights[0].enable();
 
 		this.lights[1].setPosition(3, 6, 1, 1);
 		this.lights[1].setAmbient(0, 0, 0, 1);
 		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		// this.lights[1].enable();
+
 
 		this.lights[2].setPosition(0, 6.3, -17.2, 1);
 		this.lights[2].setVisible(true);
 		this.lights[2].setAmbient(0, 0, 0.2, 1);
 		this.lights[2].setDiffuse(1, 1, 0.2, 1);
 		this.lights[2].setSpecular(1,1,0,1);
+		this.lights[2].setLinearAttenuation(0.1);
 
 
-		// this.lights[3].setPosition(0, 6.3, -17.2, 1);
-		// this.lights[3].setVisible(true);
-		// this.lights[3].setAmbient(0, 0, 0.2, 1);
-		// this.lights[3].setDiffuse(1, 1, 0.2, 1);
-		// this.lights[3].setSpecular(1,1,0,1);
+		this.lights[3].setPosition(-7, 6.2, 14.6, 1);
+		this.lights[3].setVisible(true);
+		this.lights[3].setAmbient(0, 0, 0.2, 1);
+		this.lights[3].setDiffuse(1, 1, 0.2, 1);
+		this.lights[3].setSpecular(1,1,0,1);
+		this.lights[3].setLinearAttenuation(0.1);
 
 
-		// this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
-		// // this.lights[2].setVisible(true); // show marker on light position (different from enabled)
+		this.lights[4].setPosition(12.6, 6.3, 0, 1);
+		this.lights[4].setVisible(true);
+		this.lights[4].setAmbient(0, 0, 0.2, 1);
+		this.lights[4].setDiffuse(1, 1, 0.2, 1);
+		this.lights[4].setSpecular(1,1,0,1);
+		this.lights[4].setLinearAttenuation(0.1);
 
-		// this.lights[3].setPosition(4, 6.0, 5.0, 1.0);
-		// // this.lights[3].setVisible(true); // show marker on light position (different from enabled)
-
-		// // this.lights[0].setAmbient(0, 0, 0, 1);
-		// this.lights[0].setAmbient(0.5, 0.5, 0.5, 1);
-		// this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		// this.lights[0].setSpecular(1,1,0,1);
-		// this.lights[0].enable();
-
-
-
-		// this.lights[2].setAmbient(0, 0, 0, 1);
-		// this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		// this.lights[2].setSpecular(1,1,1,1);
-
-		// //kc
-		// this.lights[2].setConstantAttenuation(0)
-		// //kl
-		// // this.lights[2].setLinearAttenuation(0.2)
-		// this.lights[2].setLinearAttenuation(1)
-		// //kq
-		// this.lights[2].setQuadraticAttenuation(0)
-		// // this.lights[2].enable();
-
-		// this.lights[3].setAmbient(0, 0, 0, 1);
-		// this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		// this.lights[3].setSpecular(1,1,0,1);
-		// //kc
-		// this.lights[3].setConstantAttenuation(0)
-		// //kl
-		// // this.lights[2].setLinearAttenuation(0.2)
-		// this.lights[3].setLinearAttenuation(0)
-		// //kq
-		// this.lights[3].setQuadraticAttenuation(1)
-		// // this.lights[3].enable();
-
-		// this.lights[4].setPosition(15, 2, 5, 1);
-		// this.lights[4].setDiffuse(1.0,1.0,1.0,1.0);
-		// this.lights[4].enable();
-		// this.lights[4].update();
-
-
-
-
-		// this.lights[0].setPosition(4, 6, 1, 1);
-		// this.lights[0].setAmbient(0.5, 0.5, 0.5, 1);
-		// this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		// this.lights[0].setSpecular(1,1,0,1);
-		// this.lights[0].setVisible(true);
-		// this.lights[0].enable();
-		// this.lights[0].update();
+		
 	};
 
 	updateLights()
@@ -348,13 +297,9 @@ initLights()
 			this.lights[i].update();
 	}
 
-	Controles()
+	Controls()
 	{
-		// if (this.Eixos == false) {
-		// 	this.axis = null;
-		// } else {
-		// 	this.axis = new CGFaxis(this);
-		// }
+	
 	};
 
 	checkKeys()
@@ -370,10 +315,6 @@ initLights()
 			if (this.vehicle.speed <= this.vehicle.maxSpeed) {
 				this.vehicle.speed += this.vehicle.acceleration;
 			}
-
-			// if (this.vehicle.acceleration < 0.3 && this.vehicle.acceleration > -0.9 ) {
-			// 	this.vehicle.acceleration += 0.05;
-			// }
 
 		}
 		if (this.gui.isKeyPressed("KeyS"))
@@ -422,7 +363,7 @@ initLights()
 		} else {
 			this.vehicle.wheelRotationAngle	= 0;
 
-			if (this.Desaceleracao_Continua == true) {
+			if (this.Smooth_Deceleration == true) {
 				if (this.vehicle.speed > 0) {
 					this.vehicle.speed -= 0.01;
 				}
@@ -474,7 +415,7 @@ initLights()
 		////////////////// GUI UPDATES  //////////////////
 
 		// Draw axis
-		if (this.Eixos != false) {
+		if (this.Axis != false) {
 			this.axis.display();
 		}
 
@@ -483,23 +424,29 @@ initLights()
 
 
 
-		// Luzes
-		if (this.Poste_1 == true) {
+		// Lights
+		if (this.Light_Pole1 == true) {
 			this.lights[2].enable();
 		}
-		if (this.Poste_1 == false) {
+		if (this.Light_Pole1 == false) {
 			this.lights[2].disable();
 		}
 
-		// if (this.Poste_2 == true) {
-		// 	this.lights[2].enable();
-		// }
-		// if (this.Poste_3 == true) {
-		// 	this.lights[3].enable();
-		// }
-		// if (this.Poste_4 == true) {
-		// 	this.lights[4].enable();
-		// }
+		if (this.Light_Pole2 == true) {
+			this.lights[3].enable();
+		}
+		if (this.Light_Pole2 == false) {
+			this.lights[3].disable();
+		}
+
+		if (this.Light_Pole3 == true) {
+			this.lights[4].enable();
+		}
+		if (this.Light_Pole3 == false) {
+			this.lights[4].disable();
+		}
+
+		
 
 
 		if (this.Luz_Global == true) {
@@ -511,7 +458,7 @@ initLights()
 		}
 
 
-		if (this.Luzes_Visiveis == true) {
+		if (this.Visible_Lights == true) {
 			for (var i = 0; i < this.lights.length ; i++)
 				this.lights[i].setVisible(true);
 		} else {
@@ -530,11 +477,23 @@ initLights()
 		this.crane.display();
 		this.popMatrix();
 
-		//POSTES DE LUZ
+		//LIGHT POLES
 		this.pushMatrix();
 		this.translate(0, 2, -18);
 		this.rotate(-Math.PI/2, 0, 1, 0);
-		this.poste1.display();
+		this.pole1.display();
+		this.popMatrix();
+
+		this.pushMatrix();
+		this.translate(-7, 2, 15);
+		this.rotate(Math.PI/2, 0, 1, 0);
+		this.pole2.display();
+		this.popMatrix();
+
+		this.pushMatrix();
+		this.translate(13, 2, 0);
+		this.rotate(Math.PI, 0, 1, 0);
+		this.pole3.display();
 		this.popMatrix();
 
 		//this.crane.update(10000000);

@@ -22,7 +22,7 @@ serialInclude([
 	'MyTerrain.js',
 	'MyInterface.js',
 	'MyCrane.js',
-	'MyPoste.js',
+	'MyPole.js',
 
 	main=function() {
 		var app = new CGFapplication(document.body);
