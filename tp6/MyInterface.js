@@ -41,6 +41,7 @@ class MyInterface extends CGFinterface {
 		group.add(this.scene, 'Eixos');
 		group.add(this.scene, 'Desaceleracao_Continua');
 		group.add(this.scene, 'Luzes_Visiveis');
+		group.add(this.scene, 'Luz_Global');
 
 		// add a slider
 		// must be a numeric variable of the scene, initialized in scene.init e.g.

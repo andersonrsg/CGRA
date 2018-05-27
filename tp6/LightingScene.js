@@ -47,6 +47,7 @@ class LightingScene extends CGFscene
 
 		// Luzes
 		this.Poste_1 = true;
+		this.Luz_Global = true;
 
 		// Car Textures
 		this.RoofTexture = 0;
@@ -264,21 +265,25 @@ initLights()
 		this.lights[0].setPosition(-4, 6, 1, 1);
 		this.lights[0].setAmbient(0, 0, 0, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[0].enable();
+		// this.lights[0].enable();
 
 		this.lights[1].setPosition(3, 6, 1, 1);
 		this.lights[1].setAmbient(0, 0, 0, 1);
 		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[1].enable();
+		// this.lights[1].enable();
 
-		this.lights[2].setPosition(0, 6.3, -14.2, 1);
+		this.lights[2].setPosition(0, 6.3, -17.2, 1);
 		this.lights[2].setVisible(true);
-		this.lights[2].setAmbient(0, 0, 0, 1);
-		this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		this.lights[2].setAmbient(0, 0, 0.2, 1);
+		this.lights[2].setDiffuse(1, 1, 0.2, 1);
+		this.lights[2].setSpecular(1,1,0,1);
 
 
-
-
+		// this.lights[3].setPosition(0, 6.3, -17.2, 1);
+		// this.lights[3].setVisible(true);
+		// this.lights[3].setAmbient(0, 0, 0.2, 1);
+		// this.lights[3].setDiffuse(1, 1, 0.2, 1);
+		// this.lights[3].setSpecular(1,1,0,1);
 
 
 		// this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
@@ -385,9 +390,6 @@ initLights()
 			text += " A ";
 			this.keysPressed = true;
 
-			// this.vehicle.wheelRotationAngle	= 1;
-			// this.vehicle.Apressed = true;
-
 			if (this.vehicle.wheelRotationCounter < Math.PI/4) {
 				this.vehicle.wheelRotationCounter += 0.02;
 			}
@@ -402,9 +404,6 @@ initLights()
 		{
 			text += " D ";
 			this.keysPressed = true;
-
-			// this.vehicle.wheelRotationAngle = 1;
-			// this.vehicle.Dpressed = true;
 
 			if (this.vehicle.wheelRotationCounter > -Math.PI/4) {
 				this.vehicle.wheelRotationCounter -= 0.02;
@@ -431,12 +430,6 @@ initLights()
 					this.vehicle.speed += 0.01;
 				}
 
-				// if (this.vehicle.wheelRotationCounter < 0) {
-				// 	this.vehicle.wheelRotationCounter += 0.02;
-				// }
-				// if (this.vehicle.wheelRotationCounter > 0) {
-				// 	this.vehicle.wheelRotationCounter -= 0.02;
-				// }
 			}
 
 			if (this.vehicle.speed > -0.011 && this.vehicle.speed < 0.011) {
@@ -457,22 +450,6 @@ initLights()
 				this.vehicle.wheelRotationCounter -= 0.02;
 			}
 		}
-
-
-
-		// if (this.keyAPressed || this.keySPressed) {
-		// 	if (this.keyAPressed) {
-		// 		this.vehicle.wheelRotationAngle = 1;
-		// 		this.vehicle.Apressed = true;
-		// 	} else {
-		// 		this.vehicle.wheelRotationAngle = 1;
-		// 		this.vehicle.Spressed = true;
-		// 	}
-		// } else {
-		// 	this.vehicle.wheelRotationAngle	= 0;
-		// 	this.vehicle.Apressed = false;
-		// 	this.vehicle.Spressed = true;
-		// }
 
 	}
 
@@ -501,53 +478,9 @@ initLights()
 			this.axis.display();
 		}
 
-		if (this.Luzes) {
 
-		} else {
+		// this.materialDefault.apply();
 
-		}
-
-
-		this.vehicle.maxSpeed = this.Speed;
-
-
-
-
-		this.materialDefault.apply();
-
-		// ---- END Background, camera and axis setup
-
-		// ---- BEGIN Scene drawing section
-
-
-
-		// ---- END Scene drawing section
-
-
-		this.pushMatrix();
-		// this.translate(-2, 0, -1.25);
-		// this.translate(2,0,-9.5);
-
-		// this.rotate(this.vehicle.angleAlpha, 0, 1, 0);
-		// this.translate(this.vehicle.posX, 0, this.vehicle.posZ);
-
-		//if luzes ligadas
-
-
-		// this.frontLeftLght.enable();
-		// this.frontLeftLght.update();
-
-		// this.vehicle.applyTexture(vehicleAppearanceList(this.selectedCarTexture));
-
-		// this.lights[1].setPosition(this.vehicle.posX, 1, this.vehicle.posZ, 1);
-		this.vehicle.display();
-		this.popMatrix();
-
-
-		// this.pushMatrix();
-		// // this.scene.rotate(Math.PI/2, 0,1,0);
-		// this.lights[1].setPosition(this.vehicle.posX, 1, this.vehicle.posZ, 1);
-		// this.popMatrix();
 
 
 		// Luzes
@@ -567,6 +500,16 @@ initLights()
 		// if (this.Poste_4 == true) {
 		// 	this.lights[4].enable();
 		// }
+
+
+		if (this.Luz_Global == true) {
+			this.lights[0].enable();
+			this.lights[1].enable();
+		} else {
+			this.lights[0].disable();
+			this.lights[1].disable();
+		}
+
 
 		if (this.Luzes_Visiveis == true) {
 			for (var i = 0; i < this.lights.length ; i++)
@@ -589,13 +532,23 @@ initLights()
 
 		//POSTES DE LUZ
 		this.pushMatrix();
-		this.translate(0, 2, -15);
+		this.translate(0, 2, -18);
 		this.rotate(-Math.PI/2, 0, 1, 0);
 		this.poste1.display();
 		this.popMatrix();
 
 		//this.crane.update(10000000);
 
+
+		//VEÍCULO
+		this.vehicle.maxSpeed = this.Speed;
+
+		this.pushMatrix();
+		// this.translate(-2, 0, -1.25);
+		// this.translate(2,0,-9.5);
+
+		this.vehicle.display();
+		this.popMatrix();
 
 	};
 };
