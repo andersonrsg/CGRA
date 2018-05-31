@@ -6,16 +6,12 @@ Made in colaboration with [Nuno Martins](https://github.com/fumarcigarros).<br>
 #### Screenshots
 ***
 
-![alt tag](https://imgur.com/szkqpjY)
+![](https://imgur.com/szkqpjY.png)
 
 ***
 
-![alt tag](https://imgur.com/OI6ZzoI)
+![](https://imgur.com/LH1cmsl.png)
 
 ***
 
-![alt tag](https://imgur.com/LH1cmsl)
-
-***
-
-![alt tag](https://imgur.com/dUIrKQe)
+![](https://imgur.com/dUIrKQe.png)
